@@ -540,3 +540,13 @@
 **Reason:** TASK-0099 passed implementation-side checks. QA should confirm the classifier remains scenario-specific, Scenario 1 regression is preserved, invalid inputs reject safely, deterministic event payload is acceptable, and no playable/export/public/deploy scope was opened.
 **Consequences:** QA may run headless tests and write a review report. QA may not edit code, implement pass detection, implement UI/HUD, create a playable scene, export, deploy, edit public files, or touch Captain Ether, Nav Desk, router/registry, auth, VTS, Region B, or final maritime training claims.
 **Related files:** `docs/game-director/task-0100-qa-review-scenario-two-head-on-classifier-event-log-foundation-2026-05-27.md`
+
+## GD-DECISION-20260527-55 - Localization Role Office Prepared
+
+**Date:** 2026-05-27
+**Status:** Prepared, not yet activated
+**Area:** Watch Officer / Localization
+**Decision:** CHAT-LOCALIZATION-001 is created as Localization / Language Lead for English/Russian copy, terminology, text-key discipline, and localization safety.
+**Reason:** Watch Officer already contains English/Russian prototype copy and Scenario 2 will add more player-facing wording. A separate language role is needed before UI/HUD text expands, so translations do not change maritime meaning, exceed layout constraints, or create final/certified training claims.
+**Consequences:** Localization may be assigned a future task to create a terminology baseline, text-key inventory, and English/Russian copy table. This decision does not approve code edits, UI implementation, scenario data changes, final maritime training claims, export, deploy, Captain Ether, Nav Desk, router/registry, auth, VTS, or Region B.
+**Related files:** `docs/roles/localization-language-lead/README.md`, `docs/roles/localization-language-lead/rules.md`, `docs/roles/localization-language-lead/onboarding.md`, `docs/roles/localization-language-lead/handoff.md`, `docs/roles/localization-language-lead/first-brief.md`

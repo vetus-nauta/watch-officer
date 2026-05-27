@@ -118,6 +118,7 @@
 | TASK-0098 | QA review Scenario 2 schema/data/loader validation | CHAT-QA-001 | Approved | QA approval: next Engine slice unblocked |
 | TASK-0099 | Engine Scenario 2 head-on classifier/event log foundation | CHAT-ENGINE-001 | Passed | Scenario 2 classifier/event log report |
 | TASK-0100 | QA review Scenario 2 head-on classifier/event log foundation | CHAT-QA-001 | Assigned | QA approval or changes-required |
+| TASK-0101 | Prepare Localization / Language Lead office | CHAT-GD-001 | Approved | Role cabinet under docs/roles/localization-language-lead |
 
 ## Immediate Next Step
 

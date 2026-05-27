@@ -18,6 +18,7 @@
 | CHAT-UX-001 | UI/UX HUD | Game selection, Watch Officer HUD, mobile layout | TASK-0095 for review | Layout reports |
 | CHAT-VISUAL-001 | Visual Comfort / Art Direction Lead | Watch Officer visual comfort, art direction, motion comfort, perception rules | Assigned TASK-0091 | Visual direction specs |
 | CHAT-AUDIO-001 | Audio Direction / Sound Design Lead | Focus music, maritime ambience, system sounds, warning audio, audio accessibility | Assigned TASK-0092 | Audio direction specs |
+| CHAT-LOCALIZATION-001 | Localization / Language Lead | English/Russian copy, terminology, text keys, localization safety | Prepared, not yet activated | Localization baseline and glossary |
 | CHAT-ENGINE-001 | Engine / Godot | Watch Officer prototype architecture | TASK-0096 for review | Technical plan |
 | CHAT-QA-001 | QA / Validation | Rule verification and scenario validation | For Review | QA reports |
 | CHAT-MARITIME-RULES-001 | Maritime Rules Auditor | COLREGS/MPPSS, IALA/MAMS, scenario-rule audit, algorithm boundaries, wording safety | TASK-0094 approved | Maritime-rule audit reports |
