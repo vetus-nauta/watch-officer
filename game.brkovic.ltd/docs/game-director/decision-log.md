@@ -650,3 +650,33 @@
 **Reason:** The product needs clear language order before UI/HUD and scenario text expansion. English must remain the source and fallback so missing or ambiguous locale detection never blocks gameplay.
 **Consequences:** Implementation should eventually detect the user's system/browser locale and fallback to English if unknown or unsupported. Sea Speak training phrases remain fixed English learning content and must not be translated as ordinary UI copy. Localization may translate UI, instructions, explanations, warnings, and result feedback around Sea Speak, but not replace the Sea Speak phrase target.
 **Related files:** `docs/roles/localization-language-lead/README.md`, `docs/roles/localization-language-lead/rules.md`
+
+## GD-DECISION-20260527-66 - Scenario 2 UI/HUD Binding Foundation Passed
+
+**Date:** 2026-05-27
+**Status:** Passed, ready for QA review
+**Area:** Watch Officer / UI-HUD
+**Decision:** TASK-0107 completed Scenario 2 UI/HUD binding foundation.
+**Reason:** HUD now maps Engine-owned `snapshot["scenario_two"]` fields to approved Scenario 2 draft briefing, active coaching, status, and result feedback wording. The implementation remains display-only and does not import simulation modules or read `snapshot["qa"]["scenario_two_debug"]`. Focused and full headless regression passed with 0 failed tests.
+**Consequences:** The next gate is QA review of TASK-0107. Playable Scenario 2 route, scenario selection UI, export, deploy, public changes, VTS, Region B, and final maritime training claims remain closed.
+**Related files:** `docs/watch-officer/scenario-two-ui-hud-binding-foundation-report.md`
+
+## GD-DECISION-20260527-67 - Scenario 2 UI/HUD Binding Moves To QA
+
+**Date:** 2026-05-27
+**Status:** Assigned to QA
+**Area:** Watch Officer / QA
+**Decision:** TASK-0108 is assigned to QA for Scenario 2 UI/HUD binding foundation review.
+**Reason:** TASK-0107 passed implementation-side checks. QA should confirm Scenario 1 HUD preservation, Scenario 2 display-only behavior, approved wording, hidden debug fields, forbidden-claim absence, disabled/inactive VTS, and no accidental playable/export/public scope.
+**Consequences:** QA may run headless tests and write a review report. QA may not edit code, implement playable Scenario 2, export, deploy, edit public files, or touch Captain Ether, Nav Desk, router/registry, auth, production config, FTP, VTS, Region B, or final maritime training claims.
+**Related files:** `docs/game-director/task-0108-qa-review-scenario-two-ui-hud-binding-foundation-2026-05-27.md`
+
+## GD-DECISION-20260527-68 - Scenario 2 UI/HUD Binding QA Approved
+
+**Date:** 2026-05-27
+**Status:** Approved for next slice
+**Area:** Watch Officer / QA
+**Decision:** TASK-0108 approves Scenario 2 UI/HUD binding foundation for the next Scenario 2 playable-scene planning slice.
+**Reason:** QA confirmed approved Scenario 2 draft wording, one primary cue plus capped chips, display-only binding to `runtime_snapshot["scenario_two"]`, no HUD-side simulation computation, no `snapshot["qa"]["scenario_two_debug"]` exposure, Scenario 1 HUD preservation, disabled/inactive VTS, and absence of forbidden player-facing claims. Required focused tests passed with 0 failed tests.
+**Consequences:** The next task may plan Scenario 2 playable-scene integration. Export, deploy, public changes, VTS, Region B, and final maritime training claims remain closed.
+**Related files:** `docs/watch-officer/qa-scenario-two-ui-hud-binding-foundation-review.md`

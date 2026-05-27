@@ -7,6 +7,8 @@ const CUE_LEGEND_TEXT := "Cues: cyan corridor | amber shallow | yellow finish ga
 const BRIEFING_DRAFT_TEXT := "Draft training scenario - not final maritime instruction."
 const RESULT_DRAFT_TEXT := "Draft training scenario - captain note, not final maritime instruction."
 const OPENING_CUE_HOLD_TICKS := 40
+const SCENARIO_TWO_ID := "head-on-port-to-port"
+const SCENARIO_TWO_TITLE := "Head-On Port-to-Port Drill"
 
 const TERMINAL_RESULT_STATES := ["success", "warning_outcome", "unsafe_manoeuvre", "near_miss", "grounding", "collision", "load_blocked"]
 const SAFE_WATER_LABELS := {
@@ -91,7 +93,7 @@ func build_sections(runtime_snapshot: Dictionary, attempt_state: String = "ready
 	var debug_status := _build_debug_status(runtime_snapshot)
 	var attempt_status := _build_attempt_status(runtime_snapshot, attempt_state)
 	var captain_report := _build_captain_report(runtime_snapshot, attempt_state, scenario_result_detail)
-	var briefing := _build_briefing()
+	var briefing := _build_briefing(runtime_snapshot)
 	var result_feedback := _build_result_feedback(runtime_snapshot, attempt_state, scenario_result_detail)
 	var decision_coaching_model := _build_decision_coaching_model(runtime_snapshot, attempt_state)
 	var decision_coaching := _format_decision_coaching(decision_coaching_model)
@@ -133,7 +135,28 @@ func build_sections(runtime_snapshot: Dictionary, attempt_state: String = "ready
 	}
 
 
-func _build_briefing() -> String:
+func _build_briefing(runtime_snapshot: Dictionary = {}) -> String:
+	if _is_scenario_two(runtime_snapshot):
+		return "\n".join([
+			SCENARIO_TWO_TITLE,
+			"",
+			BRIEFING_DRAFT_TEXT,
+			"",
+			"Objective",
+			"Recognize head-on risk, alter starboard early, and create a port-to-port pass.",
+			"",
+			"Situation",
+			"Draft training scenario. One power-driven target is approaching on a reciprocal or nearly reciprocal course. Recommended action in this scenario: alter starboard early and create a port-to-port pass.",
+			"",
+			"Watch",
+			"Head-on risk | Alter starboard early | Port-to-port pass",
+			"",
+			"Controls",
+			"Turn port/starboard. Step speed down/up. Start when ready.",
+			"",
+			"Start Attempt"
+		])
+
 	return "\n".join([
 		"Safe Water, Crossing Target",
 		"",
@@ -159,6 +182,8 @@ func _build_result_feedback(runtime_snapshot: Dictionary, attempt_state: String,
 	var scenario_result := str(runtime_snapshot["scenario_result"])
 	if attempt_state != "completed" and not TERMINAL_RESULT_STATES.has(scenario_result):
 		return ""
+	if _is_scenario_two(runtime_snapshot):
+		return _build_scenario_two_result_feedback(runtime_snapshot, scenario_result_detail)
 
 	var result_category := _result_category(scenario_result)
 	var safe_water: Dictionary = runtime_snapshot["safe_water"]
@@ -208,6 +233,8 @@ func _build_decision_coaching_model(runtime_snapshot: Dictionary, attempt_state:
 			"primary": "",
 			"chips": []
 		}
+	if _is_scenario_two(runtime_snapshot):
+		return _build_scenario_two_decision_coaching_model(runtime_snapshot)
 
 	var scenario_result := str(runtime_snapshot["scenario_result"])
 	var safe_water: Dictionary = runtime_snapshot["safe_water"]
@@ -260,6 +287,131 @@ func _build_decision_coaching_model(runtime_snapshot: Dictionary, attempt_state:
 		"primary": primary,
 		"chips": chips.slice(0, min(2, chips.size()))
 	}
+
+
+func _build_scenario_two_decision_coaching_model(runtime_snapshot: Dictionary) -> Dictionary:
+	var scenario_result := str(runtime_snapshot["scenario_result"])
+	var cpa_tcpa: Dictionary = runtime_snapshot["cpa_tcpa"]
+	var warnings: Dictionary = runtime_snapshot["warnings"]
+	var scenario_two: Dictionary = runtime_snapshot.get("scenario_two", {})
+	var primary_warning = warnings.get("primary_warning", null)
+	var primary := ""
+	var chips: Array[String] = []
+
+	if TERMINAL_RESULT_STATES.has(scenario_result):
+		primary = _terminal_result_cue(scenario_result)
+		chips.append(str(RESULT_CHIP_LABELS.get(scenario_result, scenario_result)))
+	elif primary_warning != null and str((primary_warning as Dictionary).get("severity", "")) == "immediate":
+		primary = _scenario_two_warning_cue(primary_warning)
+		chips.append(_warning_label_for_key(str((primary_warning as Dictionary).get("text_key", (primary_warning as Dictionary).get("id", "")))))
+	elif ["immediate", "danger"].has(str(cpa_tcpa["state"])):
+		primary = "CPA danger. Avoid collision."
+		chips.append(_cpa_tcpa_player_label(str(cpa_tcpa["state"])))
+	elif str(cpa_tcpa["state"]) == "caution":
+		primary = "CPA caution. Increase separation."
+		chips.append(_cpa_tcpa_player_label("caution"))
+	elif bool(scenario_two.get("port_to_port_achieved", false)):
+		primary = "Port-to-port pass achieved."
+		chips.append("Port-to-port")
+	elif int(runtime_snapshot["tick"]) <= OPENING_CUE_HOLD_TICKS:
+		primary = "Head-on risk. Alter starboard early."
+		chips.append("Head-on")
+	elif bool(scenario_two.get("early_starboard_detected", false)):
+		primary = "Monitor the closing target."
+		chips.append("Head-on")
+	else:
+		primary = "Make a clear starboard alteration."
+		chips.append("Head-on")
+
+	if runtime_snapshot.get("draft_training", false) and chips.size() < 2:
+		chips.append("Draft training")
+
+	return {
+		"primary": primary,
+		"chips": chips.slice(0, min(2, chips.size()))
+	}
+
+
+func _build_scenario_two_result_feedback(runtime_snapshot: Dictionary, scenario_result_detail: Dictionary) -> String:
+	var scenario_result := str(runtime_snapshot["scenario_result"])
+	var result_category := _scenario_two_result_category(scenario_result)
+	var safe_water: Dictionary = runtime_snapshot["safe_water"]
+	var cpa_tcpa: Dictionary = runtime_snapshot["cpa_tcpa"]
+	var scenario_two: Dictionary = runtime_snapshot.get("scenario_two", {})
+	var reasons := _scenario_two_result_reasons(runtime_snapshot, scenario_result_detail)
+	var reason_lines: Array[String] = ["Reasons"]
+	for reason in reasons:
+		reason_lines.append("- %s" % reason)
+	return "\n".join([
+		result_category["title"],
+		RESULT_DRAFT_TEXT,
+		"",
+		"Result: %s" % scenario_result,
+		"",
+		result_category["body"],
+		"",
+		"Safe water: %s" % _safe_water_player_label(str(safe_water["state"])),
+		"CPA/TCPA: %s" % _cpa_tcpa_player_label(str(cpa_tcpa["state"])),
+		"Early starboard: %s" % _scenario_two_action_label(str(scenario_two.get("early_starboard_status", "not_detected"))),
+		"Port-to-port: %s" % _scenario_two_pass_label(str(scenario_two.get("port_to_port_status", "not_achieved"))),
+		"Warnings: %s" % _warning_summary(runtime_snapshot, scenario_result_detail),
+		"",
+		"\n".join(reason_lines),
+		"",
+		"Restart Attempt"
+	])
+
+
+func _scenario_two_result_category(scenario_result: String) -> Dictionary:
+	if scenario_result == "success":
+		return {
+			"title": "Attempt complete",
+			"body": "The draft drill recorded early starboard alteration and a port-to-port pass in this scenario."
+		}
+	if ["warning_outcome", "unsafe_manoeuvre", "near_miss"].has(scenario_result):
+		return {
+			"title": "Needs correction",
+			"body": "The attempt remained recoverable, but the head-on drill developed avoidable risk. Review the captain note before restarting."
+		}
+	return {
+		"title": "Unsafe manoeuvre recorded",
+		"body": "The attempt ended in an unsafe outcome for this draft scenario. Restart and keep the response early and clearly to starboard."
+	}
+
+
+func _scenario_two_result_reasons(runtime_snapshot: Dictionary, scenario_result_detail: Dictionary) -> Array[String]:
+	var scenario_two: Dictionary = runtime_snapshot.get("scenario_two", {})
+	var reasons: Array[String] = []
+	if bool(scenario_two.get("early_starboard_detected", false)):
+		reasons.append("Early starboard alteration made.")
+	if bool(scenario_two.get("port_to_port_achieved", false)):
+		reasons.append("Port-to-port pass achieved.")
+	if str(runtime_snapshot["cpa_tcpa"]["state"]) == "safe":
+		reasons.append("CPA state recovered in this scenario.")
+	for reason in _result_reasons(runtime_snapshot, scenario_result_detail):
+		if not reasons.has(reason):
+			reasons.append(reason)
+	return reasons.slice(0, min(3, reasons.size()))
+
+
+func _scenario_two_action_label(status: String) -> String:
+	match status:
+		"detected":
+			return "Early starboard alteration made"
+		"late":
+			return "Late action"
+		"wrong_direction":
+			return "Port alteration increased risk in this scenario"
+	return "Not yet detected"
+
+
+func _scenario_two_pass_label(status: String) -> String:
+	match status:
+		"achieved":
+			return "Port-to-port pass achieved"
+		"wrong_side":
+			return "Port-to-port not achieved"
+	return "Not yet achieved"
 
 
 func _format_decision_coaching(model: Dictionary) -> String:
@@ -335,6 +487,15 @@ func _warning_cue(warning: Dictionary) -> String:
 	return _warning_label_for_key(str(warning.get("text_key", warning.get("id", ""))))
 
 
+func _scenario_two_warning_cue(warning: Dictionary) -> String:
+	match str(warning.get("text_key", warning.get("id", ""))):
+		"warning.cpa_risk", "cpa_tcpa.cpa_risk":
+			return "CPA danger. Avoid collision."
+		"warning.late_alteration":
+			return "Late alteration. Act now."
+	return _warning_cue(warning)
+
+
 func _build_instrument_strip(runtime_snapshot: Dictionary, attempt_state: String) -> String:
 	var scenario_static: Dictionary = runtime_snapshot.get("scenario_static", {})
 	var ownship: Dictionary = runtime_snapshot["ownship"]
@@ -367,13 +528,22 @@ func _build_warning_stack(runtime_snapshot: Dictionary) -> String:
 func _build_result_status(runtime_snapshot: Dictionary, scenario_result_detail: Dictionary) -> String:
 	var cpa_tcpa: Dictionary = runtime_snapshot["cpa_tcpa"]
 	var vts: Dictionary = runtime_snapshot["vts"]
-	return "\n".join([
+	var lines: Array[String] = [
 		"Result",
 		"State: %s" % runtime_snapshot["scenario_result"],
 		"Reason: %s" % scenario_result_detail.get("reason", "not_finished"),
 		"CPA/TCPA: %s" % cpa_tcpa["state"],
 		"VTS: %s/%s" % [str(vts["enabled"]), vts["state"]]
-	])
+	]
+	if _is_scenario_two(runtime_snapshot):
+		var scenario_two: Dictionary = runtime_snapshot.get("scenario_two", {})
+		lines.append("Encounter: %s / %s" % [
+			scenario_two.get("encounter_class", "unknown"),
+			scenario_two.get("player_role", "unknown")
+		])
+		lines.append("Early starboard: %s" % _scenario_two_action_label(str(scenario_two.get("early_starboard_status", "not_detected"))))
+		lines.append("Port-to-port: %s" % _scenario_two_pass_label(str(scenario_two.get("port_to_port_status", "not_achieved"))))
+	return "\n".join(lines)
 
 
 func _build_debug_status(runtime_snapshot: Dictionary) -> String:
@@ -509,3 +679,8 @@ func _safe_water_player_label(state: String) -> String:
 
 func _cpa_tcpa_player_label(state: String) -> String:
 	return str(CPA_TCPA_LABELS.get(state, state))
+
+
+func _is_scenario_two(runtime_snapshot: Dictionary) -> bool:
+	var scenario_static: Dictionary = runtime_snapshot.get("scenario_static", {})
+	return str(scenario_static.get("scenario_id", "")) == SCENARIO_TWO_ID
