@@ -561,6 +561,16 @@
 **Consequences:** Engine may add a Scenario 2 specific event detector, deterministic event names/payloads, and focused headless tests. Playable Scenario 2, UI/HUD, result evaluation changes, warning escalation changes, export, deploy, public changes, VTS, Region B, and final maritime training claims remain closed.
 **Related files:** `docs/game-director/task-0102-engine-scenario-two-port-to-port-pass-early-starboard-event-foundation-2026-05-27.md`
 
+## GD-DECISION-20260527-59 - Scenario 2 Port-To-Port Event Slice Passed
+
+**Date:** 2026-05-27
+**Status:** Passed, ready for QA review
+**Area:** Watch Officer / Engine
+**Decision:** TASK-0102 completed the Scenario 2 port-to-port pass and early starboard alteration event foundation slice.
+**Reason:** Engine added a Scenario 2 specific event detector, deterministic event names/payloads, and focused headless tests while preserving Scenario 1 and Scenario 2 classifier regressions. Required tests passed with `scenario_loader_test: 121 passed, 0 failed`, `scenario_one_encounter_classifier_test: 16 passed, 0 failed`, `scenario_two_head_on_classifier_event_log_test: 34 passed, 0 failed`, and `scenario_two_pass_event_detector_test: 30 passed, 0 failed`. Full headless regression passed with 0 failed tests.
+**Consequences:** The next gate is QA review of TASK-0102. Playable Scenario 2, UI/HUD, result evaluation changes, warning escalation changes, export, deploy, public changes, VTS, Region B, and final maritime training claims remain closed.
+**Related files:** `docs/watch-officer/scenario-two-port-to-port-pass-early-starboard-event-foundation-report.md`
+
 ## GD-DECISION-20260527-55 - Localization Role Office Prepared
 
 **Date:** 2026-05-27
