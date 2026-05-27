@@ -510,3 +510,13 @@
 **Reason:** QA confirmed Scenario 1 loader regression, Scenario 2 draft load, Region A-only data, draft/non-final claim status, disabled VTS, one reciprocal-or-nearly-reciprocal power-driven target, head_on / head_on_alter_starboard encounter contract, deterministic replay metadata, and blocking loader errors for invalid Scenario 2 fields. Required loader test passed with `scenario_loader_test: 121 passed, 0 failed`; full headless regression passed with 0 failed tests.
 **Consequences:** The next Engine task may implement Scenario 2 head-on classifier and event logging foundation. Playable Scenario 2 scene, UI/HUD implementation, export, deploy, public changes, VTS, Region B, and final maritime training claims remain closed.
 **Related files:** `docs/watch-officer/qa-scenario-two-schema-data-loader-validation-review.md`
+
+## GD-DECISION-20260527-52 - Scenario 2 Head-On Classifier Slice Assigned
+
+**Date:** 2026-05-27
+**Status:** Assigned to Engine
+**Area:** Watch Officer / Engine
+**Decision:** TASK-0099 is assigned for Scenario 2 head-on classifier and event logging foundation.
+**Reason:** TASK-0098 approved the Scenario 2 loader/data contract. The next useful implementation step is a narrow classifier foundation that creates deterministic Engine-owned classification and event evidence before playable scene, UI, result logic, export, or deploy work.
+**Consequences:** Engine may add a Scenario 2 specific classifier module, deterministic event log names/payloads, and focused headless tests. Playable Scenario 2, UI/HUD, port-to-port pass detection, result evaluation, warning escalation, export, deploy, public changes, VTS, Region B, and final maritime training claims remain closed.
+**Related files:** `docs/game-director/task-0099-engine-scenario-two-head-on-classifier-event-log-foundation-2026-05-27.md`
