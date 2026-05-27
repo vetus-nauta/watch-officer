@@ -1,0 +1,16 @@
+{
+  "id": "/watch-officer/",
+  "name": "Watch Officer",
+  "short_name": "Watch Officer",
+  "description": "Watch Officer is a brkovic web game project.",
+  "lang": "en",
+  "dir": "ltr",
+  "start_url": "/watch-officer/",
+  "scope": "/watch-officer/",
+  "display": "standalone",
+  "orientation": "landscape-primary",
+  "background_color": "#121826",
+  "theme_color": "#121826",
+  "categories": ["games", "entertainment"]
+}
+

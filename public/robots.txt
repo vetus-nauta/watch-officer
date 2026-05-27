@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+Disallow: /storage/
+
+Sitemap: https://game.brkovic.ltd/watch-officer/sitemap.xml
+
