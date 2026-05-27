@@ -15,12 +15,12 @@
 | CHAT-CAPTAIN-001 | Captain Ether | Existing Sea Speak game loop and content | Active product | Stability/content reports |
 | CHAT-WATCH-001 | Watch Officer | Second product concept and project office | Ready | Product office and MVP reports |
 | CHAT-GAMEPLAY-001 | Maritime Rules | IALA/MAMS, COLREGS, scenario rules | Draft-approved | Rule reports |
-| CHAT-UX-001 | UI/UX HUD | Game selection, Watch Officer HUD, mobile layout | For Review | Layout reports |
+| CHAT-UX-001 | UI/UX HUD | Game selection, Watch Officer HUD, mobile layout | Assigned TASK-0095 | Layout reports |
 | CHAT-VISUAL-001 | Visual Comfort / Art Direction Lead | Watch Officer visual comfort, art direction, motion comfort, perception rules | Assigned TASK-0091 | Visual direction specs |
 | CHAT-AUDIO-001 | Audio Direction / Sound Design Lead | Focus music, maritime ambience, system sounds, warning audio, audio accessibility | Assigned TASK-0092 | Audio direction specs |
-| CHAT-ENGINE-001 | Engine / Godot | Watch Officer prototype architecture | For Review | Technical plan |
+| CHAT-ENGINE-001 | Engine / Godot | Watch Officer prototype architecture | Assigned TASK-0096 | Technical plan |
 | CHAT-QA-001 | QA / Validation | Rule verification and scenario validation | For Review | QA reports |
-| CHAT-MARITIME-RULES-001 | Maritime Rules Auditor | COLREGS/MPPSS, IALA/MAMS, scenario-rule audit, algorithm boundaries, wording safety | Assigned TASK-0094 | Maritime-rule audit reports |
+| CHAT-MARITIME-RULES-001 | Maritime Rules Auditor | COLREGS/MPPSS, IALA/MAMS, scenario-rule audit, algorithm boundaries, wording safety | TASK-0094 approved | Maritime-rule audit reports |
 | CHAT-BRKOVIC-001 | brkovic.ltd Integration | Nav Desk links and ecosystem account handoff | Active link | Integration notes |
 
 ## Operating Rule

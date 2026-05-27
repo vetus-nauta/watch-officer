@@ -450,3 +450,13 @@
 **Reason:** The Gameplay report is strong enough to proceed, but it correctly identifies unresolved maritime-rule questions around nearly reciprocal thresholds, off-bow doubt, starboard alteration wording, port alteration severity, speed-reduction recovery, simple-channel constraints, CPA/pass-distance training values, and sign-off for `rule_review_status: "approved"`. These must be bounded before implementation so scenario-specific logic is not mistaken for final maritime instruction.  
 **Consequences:** TASK-0094 is documentation audit only. No code, scenario data, schema, UI/HUD, Engine implementation, export, deploy, public files, production files, Captain Ether, Nav Desk, router/registry, auth, production config, VTS, Region B, or final maritime training claim is approved.  
 **Related files:** `docs/watch-officer/scenario-two-head-on-port-to-port-rules-report.md`, `docs/game-director/task-0094-maritime-audit-scenario-two-head-on-port-to-port-2026-05-27.md`
+
+## GD-DECISION-20260527-46 - Scenario 2 Approved For UI And Engine Planning
+
+**Date:** 2026-05-27  
+**Status:** Assigned to UI/HUD and Engine  
+**Area:** Watch Officer / Scenario 2 Planning  
+**Decision:** TASK-0094 maritime audit approves Scenario 2 Head-On Port-to-Port for UI/HUD and Engine planning. UI/HUD receives TASK-0095 and Engine receives TASK-0096.  
+**Reason:** Maritime audit approved the scenario as a narrow draft MVP drill, with required boundaries for scenario-local thresholds, early starboard alteration wording, port alteration severity grading, speed reduction as secondary recovery, simple-channel caution, visible draft/non-final wording, VTS exclusion, IALA Region A only, and open human-expert questions before final training approval.  
+**Consequences:** TASK-0095 and TASK-0096 are documentation-only. No implementation, scenario/schema edit, export, deploy, public file change, production change, Captain Ether, Nav Desk, router/registry, auth, VTS, Region B, or final maritime training claim is approved.  
+**Related files:** `docs/watch-officer/maritime-audit-scenario-two-head-on-port-to-port.md`, `docs/game-director/task-0095-ui-hud-scenario-two-head-on-port-to-port-spec-2026-05-27.md`, `docs/game-director/task-0096-engine-scenario-two-schema-classifier-planning-2026-05-27.md`
