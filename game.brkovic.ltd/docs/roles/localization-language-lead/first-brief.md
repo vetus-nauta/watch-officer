@@ -23,10 +23,11 @@ Focus on:
 
 - Scenario 1 existing briefing/result/coaching text;
 - Scenario 2 planned briefing/coaching/result wording;
-- English/Russian terminology consistency;
+- English, Russian, German, Italian, Spanish, Serbian/Montenegrin/Croatian, and Mandarin terminology consistency;
 - text-key recommendations;
 - forbidden final-training claims;
-- UI length risks for Russian.
+- UI length risks for supported languages;
+- Sea Speak fixed-English protection.
 
 ## Key Rule
 
@@ -37,3 +38,5 @@ Every language must preserve the current prototype truth:
 ```text
 Draft training scenario - not final maritime instruction.
 ```
+
+Sea Speak phrases remain English training content and must not be localized as ordinary interface text.

@@ -14,9 +14,10 @@
 - Localization baseline report.
 - Glossary.
 - Text-key inventory.
-- English/Russian copy table.
+- Supported-language copy table.
 - Wording risk list.
 - UI/HUD length-risk notes.
+- Sea Speak fixed-English protection notes.
 - Handoff notes for Engine/UI.
 
 ## Escalation
@@ -27,6 +28,8 @@ Escalate to Game Director if:
 - translation changes maritime meaning;
 - text requires Maritime Rules Auditor decision;
 - UI cannot fit Russian copy without design adjustment;
+- locale fallback would block gameplay;
+- Sea Speak phrases are accidentally translated as ordinary UI;
 - implementation contains hard-coded player-facing text that blocks localization.
 
 ## Closed Areas Unless Assigned

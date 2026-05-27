@@ -9,10 +9,60 @@ Localization must preserve meaning, scope, and safety.
 
 Translation must not make Watch Officer sound more official, certified, legally final, or maritime-authoritative than the approved source text.
 
+## Supported Language Policy
+
+Primary language:
+
+```text
+en
+```
+
+Supported localization candidates:
+
+- `ru` - Russian;
+- `de` - German;
+- `it` - Italian;
+- `es` - Spanish;
+- `sr-ME` / `sr` / `hr` - Serbian, Montenegrin, Croatian family;
+- `zh` / `zh-CN` - Mandarin Chinese.
+
+English is the source language and fallback language.
+
+## Locale Detection Rule
+
+When implementation is assigned, language should be selected from the user's system/browser locale.
+
+Fallback rule:
+
+```text
+unknown / unsupported / failed locale -> en
+```
+
+The product must never block the game because a localization file or translated string is missing.
+
+## Sea Speak Is Fixed English
+
+Sea Speak game/training phrases are fixed English content.
+
+Do not translate, rewrite, simplify, paraphrase, or localize Sea Speak phrases as if they were ordinary UI text.
+
+Allowed:
+
+- translate surrounding UI;
+- translate instructions about the task;
+- translate result explanations;
+- add explanatory translation next to Sea Speak only when a specific Game Director task explicitly permits it.
+
+Forbidden:
+
+- replacing English Sea Speak phrase text with Russian, German, Italian, Spanish, Serbian/Montenegrin/Croatian, or Mandarin;
+- changing the phrase to fit local grammar;
+- making a localized phrase the answer target;
+- treating Sea Speak as general localization copy.
+
 ## Required Language Principles
 
-- English is the first source language for prototype copy unless a task says otherwise.
-- Russian is the first localization candidate.
+- English is the first source language and fallback.
 - Keep text concise enough for HUD, mobile, and result panels.
 - Preserve draft/non-final training wording in every language.
 - Keep maritime terms consistent across scenarios.
@@ -54,7 +104,7 @@ Required outputs may include:
 - key inventory;
 - missing-key list;
 - source English copy;
-- Russian candidate copy;
+- supported-language candidate copy;
 - length risk notes;
 - glossary terms;
 - forbidden wording scan.

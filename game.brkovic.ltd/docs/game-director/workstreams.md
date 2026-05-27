@@ -15,7 +15,7 @@ This chat is split into workstreams so reports from other chats do not mix into 
 | Gameplay | Lead Maritime Gameplay Designer | Scenario 2 Head-On Port-to-Port rules decision pack | TASK-0093 for review |
 | Visual | Visual Comfort / Art Direction Lead | Watch Officer visual comfort art direction spec | TASK-0091 approved as input |
 | Audio | Audio Direction / Sound Design Lead | Watch Officer focus soundscape and sound design spec | TASK-0092 approved as input |
-| Localization | Localization / Language Lead | English/Russian terminology and text-key readiness | Prepared, not yet activated |
+| Localization | Localization / Language Lead | EN fallback plus RU/DE/IT/ES/SRB-MNE-HR/Mandarin policy and text-key readiness | Prepared, not yet activated |
 | UI/HUD | UI/UX HUD Designer | Scenario 2 Head-On Port-to-Port UI/HUD spec | TASK-0095 for review |
 | Engine | Engine / Godot Architect | Scenario 2 head-on classifier/event log foundation | TASK-0099 passed |
 | QA | Maritime QA / Validation | Scenario 2 head-on classifier/event log review | TASK-0100 assigned |

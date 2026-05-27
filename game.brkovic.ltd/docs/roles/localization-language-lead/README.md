@@ -10,7 +10,7 @@
 
 Protect player-facing language across Watch Officer.
 
-This role owns localization strategy, terminology consistency, tone, text-key discipline, and bilingual review for English and Russian first.
+This role owns localization strategy, terminology consistency, tone, text-key discipline, and multilingual review.
 
 The role exists so Watch Officer does not become a mix of:
 
@@ -25,14 +25,47 @@ The role exists so Watch Officer does not become a mix of:
 
 Initial scope:
 
-- English source copy;
+- English source copy and default fallback;
 - Russian localization candidate;
+- German localization candidate;
+- Italian localization candidate;
+- Spanish localization candidate;
+- Serbian / Montenegrin / Croatian localization candidate;
+- Mandarin Chinese localization candidate;
 - text-key naming rules;
 - terminology glossary;
 - draft/non-final wording consistency;
-- UI length and readability checks for English/Russian.
+- UI length and readability checks for supported languages.
+
+Language order:
+
+1. `en` - English, primary source and fallback.
+2. `ru` - Russian.
+3. `de` - German.
+4. `it` - Italian.
+5. `es` - Spanish.
+6. `sr-ME` / `sr` / `hr` - Serbian, Montenegrin, Croatian family, with regional handling to be decided per implementation task.
+7. `zh` / `zh-CN` - Mandarin Chinese.
 
 Future languages require a separate Game Director decision.
+
+## Locale Selection Rule
+
+The product should choose language from the user's system/browser locale when implementation is assigned.
+
+If the locale is unknown, unsupported, ambiguous, or fails to load, fallback must be:
+
+```text
+en
+```
+
+Do not block gameplay because localization is missing.
+
+## Sea Speak Rule
+
+Sea Speak training phrases are fixed English learning content.
+
+Localization may translate instructions, UI labels, explanations, warnings, and result feedback around Sea Speak, but it must not translate, rewrite, or localize the Sea Speak phrase itself unless a specific language-teaching task explicitly permits an explanatory translation next to the fixed English phrase.
 
 ## Cabinet Files
 

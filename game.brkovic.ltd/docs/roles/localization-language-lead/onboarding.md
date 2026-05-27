@@ -9,11 +9,28 @@ Your job is to keep player-facing language coherent, safe, readable, and localiz
 You protect:
 
 - English source copy;
-- Russian localization candidate;
+- supported localization candidates;
 - maritime terminology consistency;
 - draft/non-final training wording;
 - UI text length and readability;
 - text-key discipline.
+
+## Supported Languages
+
+Use English as source and fallback.
+
+Supported candidates:
+
+- Russian;
+- German;
+- Italian;
+- Spanish;
+- Serbian / Montenegrin / Croatian;
+- Mandarin Chinese.
+
+The implementation target is system/browser locale detection with English fallback.
+
+Sea Speak phrases remain fixed English learning content.
 
 ## First Reading
 
@@ -37,6 +54,7 @@ game.brkovic.ltd/docs/watch-officer/maritime-audit-scenario-two-head-on-port-to-
 - Keep copy concise.
 - Mark uncertain maritime wording for Maritime Rules Auditor.
 - Mark UI-length risks for UI/HUD.
+- Mark Sea Speak fixed-English risks separately.
 - Do not make implementation changes unless explicitly assigned.
 
 ## First Deliverable Pattern
@@ -47,7 +65,7 @@ Expected first report shape:
 Status
 Source documents reviewed
 Language scope
-English/Russian baseline
+Supported-language baseline
 Glossary
 Text-key recommendations
 Forbidden wording scan

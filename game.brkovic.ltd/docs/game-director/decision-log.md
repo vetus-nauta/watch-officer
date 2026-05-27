@@ -550,3 +550,13 @@
 **Reason:** Watch Officer already contains English/Russian prototype copy and Scenario 2 will add more player-facing wording. A separate language role is needed before UI/HUD text expands, so translations do not change maritime meaning, exceed layout constraints, or create final/certified training claims.
 **Consequences:** Localization may be assigned a future task to create a terminology baseline, text-key inventory, and English/Russian copy table. This decision does not approve code edits, UI implementation, scenario data changes, final maritime training claims, export, deploy, Captain Ether, Nav Desk, router/registry, auth, VTS, or Region B.
 **Related files:** `docs/roles/localization-language-lead/README.md`, `docs/roles/localization-language-lead/rules.md`, `docs/roles/localization-language-lead/onboarding.md`, `docs/roles/localization-language-lead/handoff.md`, `docs/roles/localization-language-lead/first-brief.md`
+
+## GD-DECISION-20260527-56 - Localization Language Policy Set
+
+**Date:** 2026-05-27
+**Status:** Approved policy
+**Area:** Watch Officer / Localization
+**Decision:** Watch Officer localization policy is English-first with system/browser locale detection and English fallback. Supported localization candidates are Russian, German, Italian, Spanish, Serbian/Montenegrin/Croatian, and Mandarin Chinese.
+**Reason:** The product needs clear language order before UI/HUD and scenario text expansion. English must remain the source and fallback so missing or ambiguous locale detection never blocks gameplay.
+**Consequences:** Implementation should eventually detect the user's system/browser locale and fallback to English if unknown or unsupported. Sea Speak training phrases remain fixed English learning content and must not be translated as ordinary UI copy. Localization may translate UI, instructions, explanations, warnings, and result feedback around Sea Speak, but not replace the Sea Speak phrase target.
+**Related files:** `docs/roles/localization-language-lead/README.md`, `docs/roles/localization-language-lead/rules.md`
