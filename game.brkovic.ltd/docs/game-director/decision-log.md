@@ -490,3 +490,13 @@
 **Reason:** Scenario 2 now has draft data, schema support, loader contract validation, and headless loader tests while preserving Scenario 1 regression. JSON parse checks passed for schema and both scenarios. The required loader test passed with `scenario_loader_test: 121 passed, 0 failed`; full headless regression passed with 0 failed tests.
 **Consequences:** The next gate is QA review of TASK-0097. No playable Scenario 2, UI/HUD implementation, head-on runtime classifier, port-to-port detection, export, deploy, VTS, Region B, or final maritime training claim is approved by this decision.
 **Related files:** `docs/watch-officer/scenario-two-schema-data-loader-validation-report.md`, `prototypes/watch-officer-godot/data/scenarios/head-on-port-to-port.json`
+
+## GD-DECISION-20260527-50 - Scenario 2 Loader Validation Moves To QA
+
+**Date:** 2026-05-27
+**Status:** Assigned to QA
+**Area:** Watch Officer / QA
+**Decision:** TASK-0098 is assigned to QA for Scenario 2 schema/data/loader validation review.
+**Reason:** TASK-0097 passed implementation-side checks, but the next Engine slice should not start until QA confirms the loader contract, Scenario 1 regression, Scenario 2 draft data, VTS exclusion, Region A-only boundary, and no accidental playable/export/public/deploy changes.
+**Consequences:** QA may run headless loader/regression checks and write a review report. QA may not edit implementation code, scenario data, public files, production files, Captain Ether, Nav Desk, router/registry, auth, VTS, Region B, or final maritime training claims.
+**Related files:** `docs/game-director/task-0098-qa-review-scenario-two-schema-data-loader-validation-2026-05-27.md`
