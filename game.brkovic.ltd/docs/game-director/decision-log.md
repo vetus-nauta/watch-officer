@@ -621,6 +621,16 @@
 **Consequences:** QA may run headless tests and write a review report. QA may not edit code, implement UI/HUD, create a playable scene, change result evaluation, change warning escalation, export, deploy, edit public files, or touch Captain Ether, Nav Desk, router/registry, auth, VTS, Region B, or final maritime training claims.
 **Related files:** `docs/game-director/task-0106-qa-review-scenario-two-runtime-state-export-orchestrator-integration-foundation-2026-05-27.md`
 
+## GD-DECISION-20260527-65 - Scenario 2 Runtime State Export QA Approved
+
+**Date:** 2026-05-27
+**Status:** Approved for next slice
+**Area:** Watch Officer / QA
+**Decision:** TASK-0106 approves Scenario 2 runtime state export and orchestrator integration foundation.
+**Reason:** QA confirmed Scenario 1 runtime behavior preservation, Scenario 2 runtime/snapshot/QA-debug branches, Scenario 2 classifier/detector routing, debug segregation from display snapshot, disabled/inactive VTS, and no accidental UI/playable/export scope. Required tests and full headless regression passed with 0 failed tests.
+**Consequences:** Scenario 2 UI/HUD binding plan or Engine playable scene planning may start. UI/HUD can consume Engine-owned Scenario 2 state as display-only. Final maritime training approval remains closed.
+**Related files:** `docs/watch-officer/qa-scenario-two-runtime-state-export-orchestrator-integration-foundation-review.md`
+
 ## GD-DECISION-20260527-55 - Localization Role Office Prepared
 
 **Date:** 2026-05-27
