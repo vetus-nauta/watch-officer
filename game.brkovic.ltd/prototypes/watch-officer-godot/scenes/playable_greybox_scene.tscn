@@ -14,6 +14,20 @@ offset_right = 402.0
 offset_bottom = 136.0
 text = "Watch Officer greybox"
 
+[node name="ScenarioSelector" type="OptionButton" parent="HudLayer"]
+offset_left = 420.0
+offset_top = 12.0
+offset_right = 760.0
+offset_bottom = 42.0
+
+[node name="ScenarioSelectorStatusLabel" type="Label" parent="HudLayer"]
+offset_left = 420.0
+offset_top = 48.0
+offset_right = 820.0
+offset_bottom = 104.0
+text = "Draft training | Region A / VTS inactive"
+autowrap_mode = 3
+
 [node name="WarningStackLabel" type="Label" parent="HudLayer"]
 offset_left = 870.0
 offset_top = 12.0

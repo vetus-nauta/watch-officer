@@ -730,3 +730,43 @@
 **Reason:** QA confirmed Scenario 1 default path preservation, local Scenario 2 path selection without router/registry/public route work, deterministic reset, start/input/step behavior through the orchestrator, display-safe Scenario 2 HUD output, reset path persistence, and no forbidden export/deploy/public/final-claim scope. Required focused tests passed with 0 failed tests.
 **Consequences:** The next task may prepare a local polish/export-decision slice for Scenario 2. Production deploy, public route/registry changes, VTS, Region B, and final maritime training claims remain closed.
 **Related files:** `docs/watch-officer/qa-local-scenario-two-playable-scene-slice-review.md`
+
+## GD-DECISION-20260527-74 - Local Scenario Selector Preparation Passed
+
+**Date:** 2026-05-27
+**Status:** Passed
+**Area:** Watch Officer / UX / Engine
+**Decision:** TASK-0112 created the local scenario selector UX spec and TASK-0113 identified the minimal implementation point.
+**Reason:** Scenario 2 is locally playable, but local export should not proceed while the prototype still boots only the Scenario 1 default for players. A selector is needed before browser/export validation.
+**Consequences:** The next implementation may add a local Scenario 1 / Scenario 2 selector inside the existing Godot prototype. Public route, registry, deploy, VTS, Region B, and final maritime training claims remain closed.
+**Related files:** `docs/watch-officer/scenario-selector-ux-spec.md`
+
+## GD-DECISION-20260527-75 - Local Scenario Selector Implementation Passed
+
+**Date:** 2026-05-27
+**Status:** Passed, ready for QA review
+**Area:** Watch Officer / Engine
+**Decision:** TASK-0114 implemented the local scenario selector in the existing Godot greybox prototype.
+**Reason:** The selector now exposes Scenario 1 and Scenario 2 locally, preserves Scenario 1 as fresh-boot default, shows draft/non-final and Region A/VTS inactive status, allows Scenario 2 selection, hides during running attempts, preserves selected path on reset, and can return to Scenario 1. Focused tests passed with 0 failed tests.
+**Consequences:** The next gate is QA review. Export, deploy, public files, hub route, registry, Captain Ether, Nav Desk, auth, production config, FTP, VTS, Region B, and final maritime training claims remain closed.
+**Related files:** `docs/watch-officer/local-scenario-selector-implementation-report.md`
+
+## GD-DECISION-20260527-76 - Local Scenario Selector Moves To QA
+
+**Date:** 2026-05-27
+**Status:** Assigned to QA
+**Area:** Watch Officer / QA
+**Decision:** TASK-0115 is assigned to QA for local scenario selector review.
+**Reason:** TASK-0114 passed implementation-side focused tests. QA should confirm selector behavior, Scenario 1 default preservation, Scenario 2 local selection, reset behavior, absence of public route/registry/deploy scope, and no forbidden player-facing claims.
+**Consequences:** QA may run focused headless tests and write a review report. QA may not edit code, export, deploy, edit public files, or touch hub route, registry, Captain Ether, Nav Desk, auth, production config, FTP, VTS, Region B, or final maritime training claims.
+**Related files:** `docs/game-director/task-0115-qa-review-local-scenario-selector-2026-05-27.md`
+
+## GD-DECISION-20260527-77 - Local Scenario Selector QA Approved
+
+**Date:** 2026-05-27
+**Status:** Approved for local export decision
+**Area:** Watch Officer / QA
+**Decision:** TASK-0115 approves the local Scenario 1 / Scenario 2 selector for local Web export decision.
+**Reason:** QA confirmed Scenario 1 default boot, Scenario 1/Scenario 2 selector behavior, draft/non-final and Region A/VTS inactive status, Scenario 2 ready boot, selector hiding while running, reset preservation, return to Scenario 1, absence of public route/registry/hub/deploy scope, and no final/certified/legal/COLREGS-compliant claims. Required focused tests passed with 0 failed tests.
+**Consequences:** The next task may run local Web export for the selector build. Production deploy, public route/registry changes, VTS, Region B, and final maritime training claims remain closed.
+**Related files:** `docs/watch-officer/qa-local-scenario-selector-review.md`

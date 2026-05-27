@@ -8,9 +8,22 @@ const RuntimeStepOrchestrator = preload("res://scripts/runtime/runtime_step_orch
 const HudSnapshotBinder = preload("res://scripts/ui/hud_snapshot_binder.gd")
 
 const DEFAULT_SCENARIO_PATH := "res://data/scenarios/safe-water-crossing-target.json"
+const SCENARIO_TWO_PATH := "res://data/scenarios/head-on-port-to-port.json"
 const VIEW_SCALE := 1.25
 const OWNERSHIP_ANCHOR_FALLBACK := [0.5, 0.7]
 const TERMINAL_RESULT_STATES := ["success", "warning_outcome", "unsafe_manoeuvre", "near_miss", "grounding", "collision", "load_blocked"]
+const LOCAL_SCENARIO_OPTIONS := [
+	{
+		"title": "Scenario 1 - Safe Water / Crossing Target",
+		"path": DEFAULT_SCENARIO_PATH,
+		"status": "Available | Draft training | Region A / VTS inactive"
+	},
+	{
+		"title": "Scenario 2 - Head-On Port-to-Port Drill",
+		"path": SCENARIO_TWO_PATH,
+		"status": "Available locally | Draft training | Region A / VTS inactive"
+	}
+]
 
 var scenario: Dictionary = {}
 var runtime_state: Dictionary = {}
@@ -19,6 +32,7 @@ var scenario_result_detail: Dictionary = {}
 var last_loader_error: Dictionary = {}
 var local_attempt_state := "ready"
 var _scenario_path := DEFAULT_SCENARIO_PATH
+var _selected_scenario_index := 0
 
 var _orchestrator := RuntimeStepOrchestrator.new()
 var _hud_binder := HudSnapshotBinder.new()
@@ -35,6 +49,8 @@ var _coaching_rail_label: Label
 var _debug_status_label: Label
 var _cue_legend_label: Label
 var _instructions_label: Label
+var _scenario_selector: OptionButton
+var _scenario_selector_status_label: Label
 var _hud_sections: Dictionary = {}
 
 
@@ -50,6 +66,9 @@ func _ready() -> void:
 	_debug_status_label = get_node_or_null("HudLayer/DebugStatusLabel")
 	_cue_legend_label = get_node_or_null("HudLayer/CueLegendLabel")
 	_instructions_label = get_node_or_null("HudLayer/InstructionsLabel")
+	_scenario_selector = get_node_or_null("HudLayer/ScenarioSelector")
+	_scenario_selector_status_label = get_node_or_null("HudLayer/ScenarioSelectorStatusLabel")
+	_setup_scenario_selector()
 	reset_scenario()
 	set_process(true)
 
@@ -114,7 +133,9 @@ func reset_scenario() -> void:
 
 func set_scenario_path(path: String) -> Dictionary:
 	_scenario_path = path
+	_selected_scenario_index = _scenario_index_for_path(path)
 	reset_scenario()
+	_sync_scenario_selector_selection()
 	return {
 		"action": "set_scenario_path",
 		"scenario_path": _scenario_path,
@@ -129,6 +150,37 @@ func load_scenario_path(path: String) -> Dictionary:
 
 func get_scenario_path() -> String:
 	return _scenario_path
+
+
+func select_scenario_index(index: int) -> Dictionary:
+	if index < 0 or index >= LOCAL_SCENARIO_OPTIONS.size():
+		return {
+			"action": "select_scenario_index",
+			"selected_index": _selected_scenario_index,
+			"scenario_path": _scenario_path,
+			"loader_error": {
+				"code": "invalid_scenario_index",
+				"index": index
+			},
+			"attempt_state": local_attempt_state
+		}
+	var option: Dictionary = LOCAL_SCENARIO_OPTIONS[index]
+	_selected_scenario_index = index
+	return set_scenario_path(str(option["path"]))
+
+
+func get_selected_scenario_index() -> int:
+	return _selected_scenario_index
+
+
+func get_scenario_selector_snapshot() -> Dictionary:
+	return {
+		"selected_index": _selected_scenario_index,
+		"scenario_path": _scenario_path,
+		"options": LOCAL_SCENARIO_OPTIONS.duplicate(true),
+		"visible": _scenario_selector != null and _scenario_selector.visible,
+		"status_text": _scenario_selector_status_label.text if _scenario_selector_status_label != null else ""
+	}
 
 
 func advance_one_tick(input_records: Array = [], external_flags: Dictionary = {}) -> Dictionary:
@@ -386,6 +438,7 @@ func _update_hud() -> void:
 
 
 func _apply_hud_sections() -> void:
+	_update_scenario_selector_ui()
 	if _hud_label != null:
 		_hud_label.text = str(_hud_sections.get("instrument_strip", ""))
 	if _warning_stack_label != null:
@@ -419,6 +472,12 @@ func _layout_hud() -> void:
 	if _hud_label != null:
 		_hud_label.position = Vector2(12.0, 12.0)
 		_hud_label.size = Vector2(390.0, 124.0)
+	if _scenario_selector != null:
+		_scenario_selector.position = Vector2(420.0, 12.0)
+		_scenario_selector.size = Vector2(min(340.0, max(260.0, viewport_size.x - 880.0)), 30.0)
+	if _scenario_selector_status_label != null:
+		_scenario_selector_status_label.position = Vector2(420.0, 48.0)
+		_scenario_selector_status_label.size = Vector2(min(400.0, max(300.0, viewport_size.x - 860.0)), 56.0)
 	if _warning_stack_label != null:
 		_warning_stack_label.position = Vector2(max(420.0, viewport_size.x - 410.0), 12.0)
 		_warning_stack_label.size = Vector2(398.0, 92.0)
@@ -491,3 +550,46 @@ func _ownship_status_ring_color() -> Color:
 
 func _is_terminal_result(state: String) -> bool:
 	return TERMINAL_RESULT_STATES.has(state)
+
+
+func _setup_scenario_selector() -> void:
+	if _scenario_selector == null:
+		return
+	_scenario_selector.clear()
+	for index in range(LOCAL_SCENARIO_OPTIONS.size()):
+		var option: Dictionary = LOCAL_SCENARIO_OPTIONS[index]
+		_scenario_selector.add_item(str(option["title"]), index)
+	if not _scenario_selector.item_selected.is_connected(_on_scenario_selector_item_selected):
+		_scenario_selector.item_selected.connect(_on_scenario_selector_item_selected)
+	_sync_scenario_selector_selection()
+
+
+func _on_scenario_selector_item_selected(index: int) -> void:
+	select_scenario_index(index)
+
+
+func _sync_scenario_selector_selection() -> void:
+	if _scenario_selector == null:
+		return
+	var index: int = clamp(_scenario_index_for_path(_scenario_path), 0, LOCAL_SCENARIO_OPTIONS.size() - 1)
+	if _scenario_selector.selected != index:
+		_scenario_selector.select(index)
+	_update_scenario_selector_ui()
+
+
+func _update_scenario_selector_ui() -> void:
+	var selector_visible: bool = local_attempt_state != "running"
+	if _scenario_selector != null:
+		_scenario_selector.visible = selector_visible
+	if _scenario_selector_status_label != null:
+		_scenario_selector_status_label.visible = selector_visible
+		var option: Dictionary = LOCAL_SCENARIO_OPTIONS[_selected_scenario_index]
+		_scenario_selector_status_label.text = "%s\nNot final maritime instruction." % str(option["status"])
+
+
+func _scenario_index_for_path(path: String) -> int:
+	for index in range(LOCAL_SCENARIO_OPTIONS.size()):
+		var option: Dictionary = LOCAL_SCENARIO_OPTIONS[index]
+		if str(option["path"]) == path:
+			return index
+	return 0
