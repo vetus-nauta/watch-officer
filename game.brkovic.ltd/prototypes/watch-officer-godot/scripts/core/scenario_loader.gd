@@ -11,13 +11,17 @@ const ERR_VTS_MUST_BE_DISABLED := "SCENARIO_VTS_MUST_BE_DISABLED"
 const ERR_VTS_PROMPTS_NOT_ALLOWED := "SCENARIO_VTS_PROMPTS_NOT_ALLOWED"
 const ERR_TARGET_COUNT_INVALID := "SCENARIO_TARGET_COUNT_INVALID"
 const ERR_TARGET_CROSSING_SIDE_INVALID := "SCENARIO_TARGET_CROSSING_SIDE_INVALID"
+const ERR_TARGET_HEADING_RELATION_INVALID := "SCENARIO_TARGET_HEADING_RELATION_INVALID"
 const ERR_LATERAL_PAIR_INVALID := "SCENARIO_LATERAL_PAIR_INVALID"
 const ERR_MARK_REGION_INVALID := "SCENARIO_MARK_REGION_INVALID"
 const ERR_GEOMETRY_REQUIRED := "SCENARIO_GEOMETRY_REQUIRED"
+const ERR_ENCOUNTER_CONTRACT_INVALID := "SCENARIO_ENCOUNTER_CONTRACT_INVALID"
 const ERR_REPLAY_METADATA_REQUIRED := "SCENARIO_REPLAY_METADATA_REQUIRED"
 const ERR_REPLAY_TOLERANCE_INVALID := "SCENARIO_REPLAY_TOLERANCE_INVALID"
 
-const EXPECTED_SCENARIO_ID := "safe-water-crossing-target"
+const SCENARIO_SAFE_WATER_CROSSING := "safe-water-crossing-target"
+const SCENARIO_HEAD_ON_PORT_TO_PORT := "head-on-port-to-port"
+const ALLOWED_SCENARIO_IDS := [SCENARIO_SAFE_WATER_CROSSING, SCENARIO_HEAD_ON_PORT_TO_PORT]
 const EXPECTED_TRAINING_CLAIM_STATUS := "draft_not_final_training_content"
 const EXPECTED_QUALITATIVE_STATES := ["safe", "caution", "danger", "immediate"]
 
@@ -78,8 +82,9 @@ func _validate_scenario_data(data: Dictionary, scenario_path: String) -> Diction
 		if not data.has(field):
 			return _make_error(ERR_FIELD_REQUIRED, "loader.error.field_required", scenario_path, "$.%s" % field, "present", null)
 
-	if data["scenario_id"] != EXPECTED_SCENARIO_ID:
-		return _make_error(ERR_FIELD_REQUIRED, "loader.error.scenario_id_invalid", scenario_path, "$.scenario_id", EXPECTED_SCENARIO_ID, data["scenario_id"])
+	var scenario_id: String = data["scenario_id"]
+	if not ALLOWED_SCENARIO_IDS.has(scenario_id):
+		return _make_error(ERR_FIELD_REQUIRED, "loader.error.scenario_id_invalid", scenario_path, "$.scenario_id", ALLOWED_SCENARIO_IDS, data["scenario_id"])
 
 	if data["iala_region"] != "A":
 		return _make_error(ERR_IALA_REGION_UNSUPPORTED, "loader.error.iala_region_unsupported", scenario_path, "$.iala_region", "A", data["iala_region"])
@@ -94,11 +99,15 @@ func _validate_scenario_data(data: Dictionary, scenario_path: String) -> Diction
 	if not vts_error.is_empty():
 		return vts_error
 
-	var target_error := _validate_targets(data["target_vessels"], scenario_path)
+	var encounter_error := _validate_encounter(data["encounter"], scenario_id, scenario_path)
+	if not encounter_error.is_empty():
+		return encounter_error
+
+	var target_error := _validate_targets(data["target_vessels"], scenario_id, scenario_path)
 	if not target_error.is_empty():
 		return target_error
 
-	var marks_error := _validate_marks(data["marks"], scenario_path)
+	var marks_error := _validate_marks(data["marks"], scenario_id, scenario_path)
 	if not marks_error.is_empty():
 		return marks_error
 
@@ -131,7 +140,7 @@ func _validate_vts(vts: Variant, scenario_path: String) -> Dictionary:
 	return {}
 
 
-func _validate_targets(targets: Variant, scenario_path: String) -> Dictionary:
+func _validate_targets(targets: Variant, scenario_id: String, scenario_path: String) -> Dictionary:
 	if typeof(targets) != TYPE_ARRAY or targets.size() != 1:
 		return _make_error(ERR_TARGET_COUNT_INVALID, "loader.error.target_count_invalid", scenario_path, "$.target_vessels", 1, _size_or_type(targets))
 
@@ -142,8 +151,10 @@ func _validate_targets(targets: Variant, scenario_path: String) -> Dictionary:
 		return _make_error(ERR_TARGET_COUNT_INVALID, "loader.error.target_type_invalid", scenario_path, "$.target_vessels[0].type", "power_driven", target.get("type"))
 	if target.get("behaviour") != "constant_course_speed":
 		return _make_error(ERR_TARGET_COUNT_INVALID, "loader.error.target_behaviour_invalid", scenario_path, "$.target_vessels[0].behaviour", "constant_course_speed", target.get("behaviour"))
-	if target.get("crossing_from") != "starboard":
+	if scenario_id == SCENARIO_SAFE_WATER_CROSSING and target.get("crossing_from") != "starboard":
 		return _make_error(ERR_TARGET_CROSSING_SIDE_INVALID, "loader.error.target_crossing_side_invalid", scenario_path, "$.target_vessels[0].crossing_from", "starboard", target.get("crossing_from"))
+	if scenario_id == SCENARIO_HEAD_ON_PORT_TO_PORT and target.get("heading_relation") != "reciprocal_or_nearly_reciprocal":
+		return _make_error(ERR_TARGET_HEADING_RELATION_INVALID, "loader.error.target_heading_relation_invalid", scenario_path, "$.target_vessels[0].heading_relation", "reciprocal_or_nearly_reciprocal", target.get("heading_relation"))
 
 	var ais = target.get("ais")
 	if typeof(ais) != TYPE_DICTIONARY or not ais.has("vector_horizon_sec") or float(ais["vector_horizon_sec"]) <= 0.0:
@@ -151,9 +162,18 @@ func _validate_targets(targets: Variant, scenario_path: String) -> Dictionary:
 	return {}
 
 
-func _validate_marks(marks: Variant, scenario_path: String) -> Dictionary:
+func _validate_marks(marks: Variant, scenario_id: String, scenario_path: String) -> Dictionary:
 	if typeof(marks) != TYPE_ARRAY:
 		return _make_error(ERR_LATERAL_PAIR_INVALID, "loader.error.lateral_pair_invalid", scenario_path, "$.marks", "array", typeof(marks))
+
+	if scenario_id == SCENARIO_HEAD_ON_PORT_TO_PORT:
+		for index in range(marks.size()):
+			var mark = marks[index]
+			if typeof(mark) != TYPE_DICTIONARY:
+				return _make_error(ERR_LATERAL_PAIR_INVALID, "loader.error.mark_invalid", scenario_path, "$.marks[%s]" % index, "object", typeof(mark))
+			if mark.get("iala_region") != "A":
+				return _make_error(ERR_MARK_REGION_INVALID, "loader.error.mark_region_invalid", scenario_path, "$.marks[%s].iala_region" % index, "A", mark.get("iala_region"))
+		return {}
 
 	var port_count := 0
 	var starboard_count := 0
@@ -170,6 +190,48 @@ func _validate_marks(marks: Variant, scenario_path: String) -> Dictionary:
 
 	if port_count != 1 or starboard_count != 1:
 		return _make_error(ERR_LATERAL_PAIR_INVALID, "loader.error.lateral_pair_invalid", scenario_path, "$.marks", "one Region A port red and one Region A starboard green lateral mark", {"port": port_count, "starboard": starboard_count})
+	return {}
+
+
+func _validate_encounter(encounter: Variant, scenario_id: String, scenario_path: String) -> Dictionary:
+	if typeof(encounter) != TYPE_DICTIONARY:
+		return _make_error(ERR_ENCOUNTER_CONTRACT_INVALID, "loader.error.encounter_required", scenario_path, "$.encounter", "object", typeof(encounter))
+	if typeof(encounter.get("classifier_thresholds")) != TYPE_DICTIONARY:
+		return _make_error(ERR_ENCOUNTER_CONTRACT_INVALID, "loader.error.classifier_thresholds_required", scenario_path, "$.encounter.classifier_thresholds", "object", encounter.get("classifier_thresholds"))
+
+	if scenario_id == SCENARIO_SAFE_WATER_CROSSING:
+		if encounter.get("expected_initial_class") != "crossing":
+			return _make_error(ERR_ENCOUNTER_CONTRACT_INVALID, "loader.error.encounter_class_invalid", scenario_path, "$.encounter.expected_initial_class", "crossing", encounter.get("expected_initial_class"))
+		if encounter.get("expected_player_role") != "give_way":
+			return _make_error(ERR_ENCOUNTER_CONTRACT_INVALID, "loader.error.player_role_invalid", scenario_path, "$.encounter.expected_player_role", "give_way", encounter.get("expected_player_role"))
+		return _require_thresholds(encounter["classifier_thresholds"], [
+			"head_on_relative_heading_deg",
+			"crossing_min_bearing_deg",
+			"crossing_max_bearing_deg",
+			"overtaking_abaft_beam_deg",
+			"ambiguous_margin_deg"
+		], scenario_path)
+
+	if scenario_id == SCENARIO_HEAD_ON_PORT_TO_PORT:
+		if encounter.get("expected_initial_class") != "head_on":
+			return _make_error(ERR_ENCOUNTER_CONTRACT_INVALID, "loader.error.encounter_class_invalid", scenario_path, "$.encounter.expected_initial_class", "head_on", encounter.get("expected_initial_class"))
+		if encounter.get("expected_player_role") != "head_on_alter_starboard":
+			return _make_error(ERR_ENCOUNTER_CONTRACT_INVALID, "loader.error.player_role_invalid", scenario_path, "$.encounter.expected_player_role", "head_on_alter_starboard", encounter.get("expected_player_role"))
+		return _require_thresholds(encounter["classifier_thresholds"], [
+			"head_on_relative_heading_deg",
+			"head_on_bearing_ahead_tolerance_deg",
+			"ambiguous_margin_deg"
+		], scenario_path)
+
+	return _make_error(ERR_FIELD_REQUIRED, "loader.error.scenario_id_invalid", scenario_path, "$.scenario_id", ALLOWED_SCENARIO_IDS, scenario_id)
+
+
+func _require_thresholds(thresholds: Dictionary, names: Array, scenario_path: String) -> Dictionary:
+	for name in names:
+		if not thresholds.has(name):
+			return _make_error(ERR_ENCOUNTER_CONTRACT_INVALID, "loader.error.classifier_threshold_required", scenario_path, "$.encounter.classifier_thresholds.%s" % name, "present", null)
+		if typeof(thresholds[name]) != TYPE_INT and typeof(thresholds[name]) != TYPE_FLOAT:
+			return _make_error(ERR_ENCOUNTER_CONTRACT_INVALID, "loader.error.classifier_threshold_invalid", scenario_path, "$.encounter.classifier_thresholds.%s" % name, "number", thresholds[name])
 	return {}
 
 

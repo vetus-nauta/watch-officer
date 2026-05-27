@@ -470,3 +470,23 @@
 **Reason:** The UI/HUD spec keeps player-facing Scenario 2 guidance display-only, hides numeric CPA/TCPA and classifier thresholds, preserves draft/non-final wording, excludes VTS, and uses Visual/Audio direction as non-implementation inputs. The Engine planning report identifies narrow schema generalization, Scenario 2 data contract, head-on classifier boundaries, port-to-port pass detection, event logging, CPA/TCPA integration, runtime snapshot fields, replay fixtures, tests, likely future files, and stop conditions.  
 **Consequences:** No implementation is approved yet. The likely next slice is schema/data/loader validation for Scenario 2 only, while preserving Scenario 1 regression and avoiding playable scene, export, deploy, VTS, Region B, or final maritime training claims.  
 **Related files:** `docs/watch-officer/scenario-two-head-on-port-to-port-ui-hud-spec.md`, `docs/watch-officer/scenario-two-engine-schema-classifier-planning.md`
+
+## GD-DECISION-20260527-48 - Scenario 2 Loader Validation Slice Starts
+
+**Date:** 2026-05-27
+**Status:** In Progress
+**Area:** Watch Officer / Engine
+**Decision:** TASK-0097 starts the first Scenario 2 implementation slice: schema/data/loader validation only.
+**Reason:** UI/HUD and Engine planning are ready enough to create a Scenario 2 data contract without touching playable scene, classifier runtime, warning/result runtime, export, public files, or production.
+**Consequences:** This slice may add Scenario 2 JSON, narrow schema generalization, loader validation, and headless loader tests. It may not implement gameplay, UI/HUD, head-on classifier runtime, port-to-port detection, export, deploy, VTS, Region B, or final maritime training claims.
+**Related files:** `docs/game-director/task-0097-engine-scenario-two-schema-data-loader-validation-2026-05-27.md`
+
+## GD-DECISION-20260527-49 - Scenario 2 Loader Validation Passed
+
+**Date:** 2026-05-27
+**Status:** Passed, ready for QA review
+**Area:** Watch Officer / Engine
+**Decision:** TASK-0097 completed the Scenario 2 schema/data/loader validation slice.
+**Reason:** Scenario 2 now has draft data, schema support, loader contract validation, and headless loader tests while preserving Scenario 1 regression. JSON parse checks passed for schema and both scenarios. The required loader test passed with `scenario_loader_test: 121 passed, 0 failed`; full headless regression passed with 0 failed tests.
+**Consequences:** The next gate is QA review of TASK-0097. No playable Scenario 2, UI/HUD implementation, head-on runtime classifier, port-to-port detection, export, deploy, VTS, Region B, or final maritime training claim is approved by this decision.
+**Related files:** `docs/watch-officer/scenario-two-schema-data-loader-validation-report.md`, `prototypes/watch-officer-godot/data/scenarios/head-on-port-to-port.json`

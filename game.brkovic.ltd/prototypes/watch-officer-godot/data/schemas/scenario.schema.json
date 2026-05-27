@@ -28,7 +28,7 @@
   ],
   "properties": {
     "schema_version": { "const": 1 },
-    "scenario_id": { "const": "safe-water-crossing-target" },
+    "scenario_id": { "enum": ["safe-water-crossing-target", "head-on-port-to-port"] },
     "scenario_version": { "type": "string", "minLength": 1 },
     "title_key": { "type": "string", "minLength": 1 },
     "briefing_key": { "type": "string", "minLength": 1 },
@@ -138,7 +138,6 @@
           "speed_mps",
           "collision_radius_m",
           "behaviour",
-          "crossing_from",
           "ais"
         ],
         "properties": {
@@ -150,6 +149,7 @@
           "collision_radius_m": { "type": "number", "exclusiveMinimum": 0 },
           "behaviour": { "const": "constant_course_speed" },
           "crossing_from": { "const": "starboard" },
+          "heading_relation": { "const": "reciprocal_or_nearly_reciprocal" },
           "ais": {
             "type": "object",
             "additionalProperties": false,
@@ -164,38 +164,8 @@
     },
     "marks": {
       "type": "array",
-      "minItems": 2,
+      "minItems": 0,
       "maxItems": 2,
-      "allOf": [
-        {
-          "contains": {
-            "type": "object",
-            "required": ["type", "side", "iala_region", "colour"],
-            "properties": {
-              "type": { "const": "lateral" },
-              "side": { "const": "port" },
-              "iala_region": { "const": "A" },
-              "colour": { "const": "red" }
-            }
-          },
-          "minContains": 1,
-          "maxContains": 1
-        },
-        {
-          "contains": {
-            "type": "object",
-            "required": ["type", "side", "iala_region", "colour"],
-            "properties": {
-              "type": { "const": "lateral" },
-              "side": { "const": "starboard" },
-              "iala_region": { "const": "A" },
-              "colour": { "const": "green" }
-            }
-          },
-          "minContains": 1,
-          "maxContains": 1
-        }
-      ],
       "items": {
         "type": "object",
         "additionalProperties": false,
@@ -268,20 +238,15 @@
       "additionalProperties": false,
       "required": ["expected_initial_class", "expected_player_role", "classifier_thresholds"],
       "properties": {
-        "expected_initial_class": { "const": "crossing" },
-        "expected_player_role": { "const": "give_way" },
+        "expected_initial_class": { "enum": ["crossing", "head_on"] },
+        "expected_player_role": { "enum": ["give_way", "head_on_alter_starboard"] },
         "classifier_thresholds": {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "head_on_relative_heading_deg",
-            "crossing_min_bearing_deg",
-            "crossing_max_bearing_deg",
-            "overtaking_abaft_beam_deg",
-            "ambiguous_margin_deg"
-          ],
+          "required": ["head_on_relative_heading_deg", "ambiguous_margin_deg"],
           "properties": {
             "head_on_relative_heading_deg": { "type": "number", "minimum": 0, "maximum": 180 },
+            "head_on_bearing_ahead_tolerance_deg": { "type": "number", "minimum": 0, "maximum": 180 },
             "crossing_min_bearing_deg": { "type": "number", "minimum": 0, "maximum": 180 },
             "crossing_max_bearing_deg": { "type": "number", "minimum": 0, "maximum": 180 },
             "overtaking_abaft_beam_deg": { "type": "number", "minimum": 0, "maximum": 180 },
