@@ -770,3 +770,83 @@
 **Reason:** QA confirmed Scenario 1 default boot, Scenario 1/Scenario 2 selector behavior, draft/non-final and Region A/VTS inactive status, Scenario 2 ready boot, selector hiding while running, reset preservation, return to Scenario 1, absence of public route/registry/hub/deploy scope, and no final/certified/legal/COLREGS-compliant claims. Required focused tests passed with 0 failed tests.
 **Consequences:** The next task may run local Web export for the selector build. Production deploy, public route/registry changes, VTS, Region B, and final maritime training claims remain closed.
 **Related files:** `docs/watch-officer/qa-local-scenario-selector-review.md`
+
+## GD-DECISION-20260527-78 - Local Web Export Scenario Selector Passed
+
+**Date:** 2026-05-27
+**Status:** Passed, ready for QA browser smoke
+**Area:** Watch Officer / Engine
+**Decision:** TASK-0116 completed the prototype-local Web export for the Scenario 1 / Scenario 2 selector build.
+**Reason:** Pre-export focused tests passed with 0 failed tests and Godot Web export completed with exit code 0. Artifacts remain under the prototype `exports/web-local/` directory.
+**Consequences:** The next gate is QA local browser smoke. Production deploy, public route/registry changes, VTS, Region B, and final maritime training claims remain closed.
+**Related files:** `docs/watch-officer/local-web-export-scenario-selector-report.md`
+
+## GD-DECISION-20260527-79 - Local Web Export Scenario Selector Moves To QA
+
+**Date:** 2026-05-27
+**Status:** Assigned to QA
+**Area:** Watch Officer / QA
+**Decision:** TASK-0117 is assigned to QA for local browser smoke of the Scenario 1 / Scenario 2 selector export.
+**Reason:** TASK-0116 created the local export. QA should confirm artifact presence, local HTTP serving, browser canvas readiness, selector behavior, Scenario 1 default, Scenario 2 selection/reset, draft/non-final wording, and absence of forbidden claims before staged public candidate decision.
+**Consequences:** QA may run local browser smoke and write a review report. QA may not deploy, edit public files, or touch hub route, registry, Captain Ether, Nav Desk, auth, production config, FTP, VTS, Region B, or final maritime training claims.
+**Related files:** `docs/game-director/task-0117-qa-local-web-export-scenario-selector-smoke-2026-05-27.md`
+
+## GD-DECISION-20260527-80 - Local Web Export Scenario Selector QA Approved
+
+**Date:** 2026-05-27
+**Status:** Approved for staged public candidate decision
+**Area:** Watch Officer / QA
+**Decision:** TASK-0117 approves the local Web export smoke for the Scenario 1 / Scenario 2 selector build.
+**Reason:** QA confirmed export artifacts, HTTP/MIME behavior, required COOP/COEP browser headers, non-empty Godot WebGL canvas, fresh Scenario 1 default, Scenario 2 browser selection, reset preserving Scenario 2, Scenario 1 reselect, draft/non-final and Region A/VTS inactive wording, and absence of forbidden visible claims. No blockers remain for staged public candidate decision.
+**Consequences:** The next task may update the local staged public candidate under `public/play/watch-officer/`. Production deploy, FTP, VTS, Region B, and final maritime training claims remain closed.
+**Related files:** `docs/watch-officer/qa-local-web-export-scenario-selector-review.md`
+
+## GD-DECISION-20260527-81 - Scenario Selector Staged Public Candidate Assigned
+
+**Date:** 2026-05-27
+**Status:** Assigned to Platform Local Integration
+**Area:** Watch Officer / Platform
+**Decision:** TASK-0118 is assigned for local staged public candidate update of the Scenario 1 / Scenario 2 selector build.
+**Reason:** Local Web export and browser smoke are approved. The local staged public candidate can be updated by copying approved export artifacts into `public/play/watch-officer/` while preserving required Godot Web headers and avoiding production deploy.
+**Consequences:** Local repo `public/play/watch-officer/` may be updated. Production deploy, FTP, hub route, registry, Captain Ether, Nav Desk, auth, production config, VTS, Region B, and final maritime training claims remain closed.
+**Related files:** `docs/watch-officer/local-web-export-scenario-selector-report.md`
+
+## GD-DECISION-20260527-82 - Scenario Selector Staged Public Candidate Passed
+
+**Date:** 2026-05-27
+**Status:** Passed, ready for QA staged smoke
+**Area:** Watch Officer / Platform
+**Decision:** TASK-0118 updated the local staged public candidate for the Scenario 1 / Scenario 2 selector build.
+**Reason:** Approved local Web export artifacts were copied into `public/play/watch-officer/`, `.htaccess` with COOP/COEP and MIME rules was preserved, `.import` files are absent, artifact comparison passed, and forbidden-claim scan passed.
+**Consequences:** The next gate is QA staged public candidate smoke. Production deploy, FTP, VTS, Region B, and final maritime training claims remain closed.
+**Related files:** `docs/watch-officer/staged-public-scenario-selector-report.md`
+
+## GD-DECISION-20260527-83 - Scenario Selector Staged Public Candidate Moves To QA
+
+**Date:** 2026-05-27
+**Status:** Assigned to QA
+**Area:** Watch Officer / QA
+**Decision:** TASK-0119 is assigned to QA for staged public candidate smoke of the Scenario selector build.
+**Reason:** TASK-0118 passed local platform checks. QA should confirm files, headers, browser canvas, selector behavior, Scenario 1/2 flows, forbidden-claim absence, and no deploy/FTP scope.
+**Consequences:** QA may run local staged browser smoke and write a report. QA may not deploy, use FTP, or touch hub route, registry, Captain Ether, Nav Desk, auth, production config, VTS, Region B, or final maritime training claims.
+**Related files:** `docs/game-director/task-0119-qa-staged-public-scenario-selector-smoke-2026-05-27.md`
+
+## GD-DECISION-20260527-84 - Scenario Selector Staged Public QA Approved
+
+**Date:** 2026-05-27
+**Status:** Approved for production deploy decision
+**Area:** Watch Officer / QA
+**Decision:** TASK-0119 approves the staged public candidate for production deploy decision.
+**Reason:** QA confirmed staged files, `.htaccess` COOP/COEP/CORP/nosniff and MIME rules, absence of `.import` files, local HTTP/header behavior, browser canvas readiness, Scenario 1 default, Scenario 2 selection, reset preservation, Scenario 1 reselect, draft/non-final and Region A/VTS inactive wording, and absence of forbidden visible claims. No blockers remain.
+**Consequences:** The next task may perform controlled production deploy of `public/play/watch-officer/`. FTP/deploy must remain limited to Watch Officer staged candidate files. VTS, Region B, and final maritime training claims remain closed.
+**Related files:** `docs/watch-officer/qa-staged-public-scenario-selector-review.md`
+
+## GD-DECISION-20260527-85 - Scenario Selector Production Deploy Assigned
+
+**Date:** 2026-05-27
+**Status:** Assigned to Platform Deploy
+**Area:** Watch Officer / Platform Deploy
+**Decision:** TASK-0120 is assigned for controlled production deploy of the Scenario 1 / Scenario 2 selector build.
+**Reason:** Staged public candidate passed QA. Production may be updated by uploading only the approved Watch Officer public path files and preserving Godot Web headers/MIME rules.
+**Consequences:** Deploy scope is limited to `public/play/watch-officer/` production files. Captain Ether, Nav Desk, hub route, registry, auth, unrelated production config, VTS, Region B, and final maritime training claims remain closed.
+**Related files:** `docs/watch-officer/qa-staged-public-scenario-selector-review.md`

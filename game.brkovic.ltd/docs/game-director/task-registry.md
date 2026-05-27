@@ -133,6 +133,11 @@
 | TASK-0113 | Engine scenario selector feasibility check | CHAT-ENGINE-001 | Completed | Minimal implementation point identified |
 | TASK-0114 | Engine local scenario selector implementation | CHAT-GD-001 / Engine Integration | Passed | Local Scenario 1 / Scenario 2 selector implemented |
 | TASK-0115 | QA review local scenario selector | CHAT-QA-001 | Approved | QA approval: local Web export decision unblocked |
+| TASK-0116 | Engine local Web export scenario selector build | CHAT-GD-001 / Engine Integration | Passed | Prototype-local Web export created |
+| TASK-0117 | QA local Web export scenario selector smoke | CHAT-QA-001 | Approved | QA approval: staged public candidate decision unblocked |
+| TASK-0118 | Platform staged public candidate scenario selector build | CHAT-GD-001 / Platform Local Integration | Assigned | Local repo public candidate update |
+| TASK-0119 | QA staged public scenario selector smoke | CHAT-QA-001 | Approved | QA approval: production deploy decision unblocked |
+| TASK-0120 | Controlled production deploy scenario selector build | CHAT-GD-001 / Platform Deploy | Assigned | Upload staged candidate to production |
 
 ## Immediate Next Step
 
@@ -149,8 +154,8 @@ Then assign:
 2. Review `docs/watch-officer/engine-godot-prototype-report.md`.
 3. Review `docs/watch-officer/qa-validation-mvp-report.md`.
 4. Review `docs/game-director/first-scenario-decision-pack-2026-05-26.md`.
-5. Run local Web export for Scenario 1 + Scenario 2 selector build.
-6. Keep production deploy/public route separate from local export work.
+5. Create staged public candidate for Scenario 1 + Scenario 2 selector build.
+6. Keep production deploy separate from staged public candidate work.
 7. Keep Scenario 2 export, deploy, VTS, Region B, and final maritime training claims closed until specifically assigned.
 8. Keep Watch Officer as public prototype/draft; final maritime training approval remains closed.
 9. Keep Captain Ether content/API, Nav Desk, Watch Officer unrelated files, auth implementation, and unrelated production config closed unless explicitly assigned.
