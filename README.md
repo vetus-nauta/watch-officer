@@ -6,9 +6,9 @@ The project is managed as a small disciplined game studio. Before gameplay code 
 
 ## Current Stage
 
-Phase 0: project office setup.
+Scenario 1 is approved as a public production prototype. Scenario 2 is in rules/audit planning.
 
-No new game implementation should start until the office structure, product bible, and initial department reports are reviewed.
+New gameplay implementation should start only after Game Director task assignment and the required review gate.
 
 ## Product Formula
 
@@ -17,6 +17,11 @@ Buoys define safe water. Vessels define behaviour. Radio defines discipline. Ins
 ## Repository Map
 
 - `PROJECT_INDEX.md`: central index for project documents.
+- `game.brkovic.ltd/docs/watch-officer/`: current Watch Officer product reports, QA reports, specs, and production status.
+- `game.brkovic.ltd/docs/game-director/`: Game Director decisions, task assignments, registries, and operating rules.
+- `game.brkovic.ltd/docs/roles/`: role cabinets for Visual, Audio, Maritime Rules Auditor, and future role chats.
+- `game.brkovic.ltd/prototypes/watch-officer-godot/`: Godot prototype source and tests.
+- `game.brkovic.ltd/public/play/watch-officer/`: current Watch Officer Web build/site artifacts.
 - `office/game_director/`: final product direction, decisions, roadmap, risks, and task board.
 - `office/gameplay_maritime_rules/`: IALA/MAMS, COLREGS, scenarios, VHF/VTS rules, and gameplay logic.
 - `office/ui_ux_hud/`: screen architecture, HUD, mobile ergonomics, and interaction layouts.
@@ -60,3 +65,17 @@ SEO rules:
 - do not publish fake screenshots, fake trailers, or thin keyword pages;
 - English is the fallback public language until real localized pages exist;
 - never present draft maritime training as final validated instruction.
+
+## GitHub Sync Rule
+
+This repository is the parallel GitHub home for Watch Officer:
+
+```text
+git@github.com:vetus-nauta/watch-officer.git
+```
+
+All approved Watch Officer project material and the Watch Officer site/build must be committed and pushed here in parallel with project work.
+
+Include Watch Officer docs, role cabinets, task assignments, reports, Godot prototype source/tests, and `game.brkovic.ltd/public/play/watch-officer/` site artifacts.
+
+Do not include secrets, FTP credentials, private config, unrelated `brkovic-ltd` files, Captain Ether implementation, Nav Desk work, generated `.godot/`, local export cache, `node_modules`, or placeholder WebStorm scaffold unless explicitly approved.

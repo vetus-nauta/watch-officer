@@ -1,7 +1,7 @@
 # Mandatory Chat Operating Rules
 
 **Owner:** ШЕФ ПРОЕКТА Watch Officer / Game Director  
-**Updated:** 2026-05-26  
+**Updated:** 2026-05-27  
 **Applies to:** Game Director chat, all role chats, and all worker chats without a named role  
 **Project:** `game.brkovic.ltd`
 
@@ -22,6 +22,7 @@ Primary project paths:
 ```text
 /home/alexey/GitHub/Revoyacht/brkovic-ltd
 /home/alexey/GitHub/Revoyacht/brkovic-ltd/game.brkovic.ltd
+/home/alexey/WebstormProjects/watch-officer
 ```
 
 Primary control files:
@@ -58,6 +59,38 @@ Deprecated old references such as:
 ```
 
 must not be used as active project paths unless Game Director explicitly assigns a migration or audit task.
+
+## GitHub Parallel Sync Rule
+
+The dedicated Watch Officer GitHub repository is:
+
+```text
+git@github.com:vetus-nauta/watch-officer.git
+```
+
+All approved Watch Officer material and the Watch Officer site/build must be mirrored there in parallel with project work.
+
+Required sync scope:
+
+- `game.brkovic.ltd/docs/watch-officer/`;
+- `game.brkovic.ltd/docs/game-director/` files that govern Watch Officer;
+- `game.brkovic.ltd/docs/roles/`;
+- `game.brkovic.ltd/prototypes/watch-officer-godot/` source, scenes, scripts, tests, and scenario data;
+- `game.brkovic.ltd/public/play/watch-officer/` site/build artifacts;
+- Watch Officer office, product bible, design, prototype, and reference docs when they are still relevant.
+
+Excluded from sync:
+
+- secrets, FTP credentials, login codes, cookies, sessions, CSRF values, SMTP details, `.netrc`, private config, player identity data, or server passwords;
+- unrelated `brkovic-ltd` files;
+- Captain Ether implementation unless a task explicitly assigns cross-product documentation;
+- Nav Desk implementation unless a task explicitly assigns cross-product documentation;
+- generated Godot `.godot/`;
+- local prototype export cache such as `prototypes/watch-officer-godot/exports/`;
+- `node_modules`, temporary test output, backups, and local IDE files;
+- placeholder WebStorm scaffold unless explicitly approved as Watch Officer site work.
+
+Every sync commit must preserve the same scope boundaries as the task that produced the files. GitHub sync is not production deploy approval.
 
 ## Game Director Chat Rules
 
