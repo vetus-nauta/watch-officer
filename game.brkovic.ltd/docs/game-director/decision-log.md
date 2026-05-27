@@ -541,6 +541,16 @@
 **Consequences:** QA may run headless tests and write a review report. QA may not edit code, implement pass detection, implement UI/HUD, create a playable scene, export, deploy, edit public files, or touch Captain Ether, Nav Desk, router/registry, auth, VTS, Region B, or final maritime training claims.
 **Related files:** `docs/game-director/task-0100-qa-review-scenario-two-head-on-classifier-event-log-foundation-2026-05-27.md`
 
+## GD-DECISION-20260527-57 - Scenario 2 Head-On Classifier QA Approved
+
+**Date:** 2026-05-27
+**Status:** Approved for next Engine slice
+**Area:** Watch Officer / QA
+**Decision:** TASK-0100 approves Scenario 2 head-on classifier and event log foundation for the next Engine slice.
+**Reason:** QA confirmed the classifier is scenario-specific, Scenario 1 regression is preserved, invalid inputs reject safely, deterministic event payload is present, and no playable/export/public/deploy scope was opened. Required tests passed with `scenario_loader_test: 121 passed, 0 failed`, `scenario_one_encounter_classifier_test: 16 passed, 0 failed`, and `scenario_two_head_on_classifier_event_log_test: 34 passed, 0 failed`. Full headless regression passed with 0 failed tests.
+**Consequences:** The next Engine task may implement Scenario 2 port-to-port pass detection and early starboard alteration event foundation. Playable Scenario 2, UI/HUD, result evaluation changes, warning escalation changes, export, deploy, public changes, VTS, Region B, and final maritime training claims remain closed.
+**Related files:** `docs/watch-officer/qa-scenario-two-head-on-classifier-event-log-foundation-review.md`
+
 ## GD-DECISION-20260527-55 - Localization Role Office Prepared
 
 **Date:** 2026-05-27
