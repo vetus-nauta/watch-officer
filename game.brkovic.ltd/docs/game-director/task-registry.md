@@ -121,6 +121,7 @@
 | TASK-0101 | Prepare Localization / Language Lead office | CHAT-GD-001 | Approved | Role cabinet under docs/roles/localization-language-lead |
 | TASK-0102 | Engine Scenario 2 port-to-port pass and early starboard event foundation | CHAT-ENGINE-001 | Passed | Scenario 2 event foundation report |
 | TASK-0103 | QA review Scenario 2 port-to-port pass and early starboard event foundation | CHAT-QA-001 | Approved | QA approval: next Engine slice unblocked |
+| TASK-0104 | Engine Scenario 2 runtime state export contract / orchestrator integration plan | CHAT-ENGINE-001 | Passed | Runtime state export contract plan |
 
 ## Immediate Next Step
 
@@ -137,7 +138,7 @@ Then assign:
 2. Review `docs/watch-officer/engine-godot-prototype-report.md`.
 3. Review `docs/watch-officer/qa-validation-mvp-report.md`.
 4. Review `docs/game-director/first-scenario-decision-pack-2026-05-26.md`.
-5. Assign next Engine slice: Scenario 2 runtime state export contract and orchestrator integration plan.
+5. Assign next Engine slice: Scenario 2 runtime state export and orchestrator integration foundation.
 6. Keep playable Scenario 2 scene, export, deploy, VTS, Region B, and final maritime training claims closed until specifically assigned.
 7. Keep Scenario 2 playable scene, export, deploy, VTS, Region B, and final maritime training claims closed until specifically assigned.
 8. Keep Watch Officer as public prototype/draft; final maritime training approval remains closed.

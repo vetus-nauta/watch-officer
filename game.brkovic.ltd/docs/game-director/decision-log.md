@@ -591,6 +591,16 @@
 **Consequences:** The next Engine task may bind Scenario 2 classifier/detector outputs into Engine-owned runtime state and export contract planning. Playable Scenario 2, UI/HUD implementation, result evaluation changes, warning escalation changes, export, deploy, public changes, VTS, Region B, and final maritime training claims remain closed.
 **Related files:** `docs/watch-officer/qa-scenario-two-port-to-port-pass-early-starboard-event-foundation-review.md`
 
+## GD-DECISION-20260527-62 - Scenario 2 Runtime State Export Plan Passed
+
+**Date:** 2026-05-27
+**Status:** Passed
+**Area:** Watch Officer / Engine
+**Decision:** TASK-0104 created the Scenario 2 runtime state export contract and orchestrator integration plan.
+**Reason:** Scenario 2 classifier and detector foundations are approved. Before UI/HUD or playable-scene work, Engine needs a clear contract for `runtime_state["scenario_two"]`, `snapshot["scenario_two"]`, event payloads, debug-only fields, and orchestrator update order.
+**Consequences:** The next Engine task may implement Scenario 2 runtime state export and orchestrator integration foundation. Playable Scenario 2, UI/HUD implementation, result evaluation changes, warning escalation changes, export, deploy, public changes, VTS, Region B, and final maritime training claims remain closed.
+**Related files:** `docs/watch-officer/scenario-two-runtime-state-export-contract-plan.md`
+
 ## GD-DECISION-20260527-55 - Localization Role Office Prepared
 
 **Date:** 2026-05-27
