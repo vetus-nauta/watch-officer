@@ -137,7 +137,8 @@
 | TASK-0117 | QA local Web export scenario selector smoke | CHAT-QA-001 | Approved | QA approval: staged public candidate decision unblocked |
 | TASK-0118 | Platform staged public candidate scenario selector build | CHAT-GD-001 / Platform Local Integration | Assigned | Local repo public candidate update |
 | TASK-0119 | QA staged public scenario selector smoke | CHAT-QA-001 | Approved | QA approval: production deploy decision unblocked |
-| TASK-0120 | Controlled production deploy scenario selector build | CHAT-GD-001 / Platform Deploy | Assigned | Upload staged candidate to production |
+| TASK-0120 | Controlled production deploy scenario selector build | CHAT-GD-001 / Platform Deploy | Passed | Production updated; QA smoke assigned |
+| TASK-0121 | QA production smoke scenario selector build | CHAT-QA-001 | Approved | Public prototype live: Scenario selector build |
 
 ## Immediate Next Step
 
@@ -154,8 +155,8 @@ Then assign:
 2. Review `docs/watch-officer/engine-godot-prototype-report.md`.
 3. Review `docs/watch-officer/qa-validation-mvp-report.md`.
 4. Review `docs/game-director/first-scenario-decision-pack-2026-05-26.md`.
-5. Create staged public candidate for Scenario 1 + Scenario 2 selector build.
-6. Keep production deploy separate from staged public candidate work.
+5. Plan next MVP slice after public Scenario 1 / Scenario 2 selector.
+6. Keep final maritime training approval, VTS, and Region B closed.
 7. Keep Scenario 2 export, deploy, VTS, Region B, and final maritime training claims closed until specifically assigned.
 8. Keep Watch Officer as public prototype/draft; final maritime training approval remains closed.
 9. Keep Captain Ether content/API, Nav Desk, Watch Officer unrelated files, auth implementation, and unrelated production config closed unless explicitly assigned.

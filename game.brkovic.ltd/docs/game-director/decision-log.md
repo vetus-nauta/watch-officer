@@ -850,3 +850,33 @@
 **Reason:** Staged public candidate passed QA. Production may be updated by uploading only the approved Watch Officer public path files and preserving Godot Web headers/MIME rules.
 **Consequences:** Deploy scope is limited to `public/play/watch-officer/` production files. Captain Ether, Nav Desk, hub route, registry, auth, unrelated production config, VTS, Region B, and final maritime training claims remain closed.
 **Related files:** `docs/watch-officer/qa-staged-public-scenario-selector-review.md`
+
+## GD-DECISION-20260527-86 - Scenario Selector Production Deploy Passed
+
+**Date:** 2026-05-27
+**Status:** Passed, ready for QA production smoke
+**Area:** Watch Officer / Platform Deploy
+**Decision:** TASK-0120 deployed the Scenario 1 / Scenario 2 selector build to production.
+**Reason:** Production upload was limited to approved Watch Officer files under `/play/watch-officer/`, remote files were backed up outside the repository, upload completed for all 10 files, production URL/header/MIME checks passed, and browser sanity confirmed a non-empty Godot canvas with selector interaction screenshots.
+**Consequences:** The next gate is QA production smoke. Captain Ether, Nav Desk, hub route, registry, auth, unrelated production config, VTS, Region B, and final maritime training claims remain closed.
+**Related files:** `docs/watch-officer/production-deploy-scenario-selector-report.md`
+
+## GD-DECISION-20260527-87 - Scenario Selector Production Smoke Assigned
+
+**Date:** 2026-05-27
+**Status:** Assigned to QA
+**Area:** Watch Officer / QA
+**Decision:** TASK-0121 is assigned to QA for production smoke of the deployed Scenario selector build.
+**Reason:** TASK-0120 updated production and passed deploy-side HTTP/header/browser sanity. Independent QA should verify public routes, artifacts, headers, browser canvas, selector flows, forbidden-claim absence, and Captain Ether route preservation.
+**Consequences:** QA may run production smoke and write a report. QA may not deploy, use FTP, or touch hub route, registry, Captain Ether implementation, Nav Desk, auth, production config, VTS, Region B, or final maritime training claims.
+**Related files:** `docs/game-director/task-0121-qa-production-smoke-scenario-selector-2026-05-27.md`
+
+## GD-DECISION-20260527-88 - Scenario Selector Public Prototype Live
+
+**Date:** 2026-05-27
+**Status:** Approved public prototype live
+**Area:** Watch Officer / QA
+**Decision:** TASK-0121 approves the production Scenario 1 / Scenario 2 selector build as live public prototype.
+**Reason:** QA confirmed production routes and artifacts return HTTP 200, COOP/COEP/CORP/nosniff and MIME headers are present, browser smoke loads a non-empty canvas, Scenario 1 defaults correctly, Scenario 2 is selectable, reset preserves Scenario 2, Scenario 1 reselect works, draft/non-final and Region A/VTS inactive wording is visible, forbidden final/certified/legal/COLREGS-compliant claims are absent in reviewed browser states, and Captain Ether route remains HTTP 200.
+**Consequences:** Watch Officer public prototype now contains Scenario 1 and Scenario 2 selector build. Final maritime training approval, VTS, Region B, hub route changes, registry changes, Captain Ether implementation changes, Nav Desk, auth, and unrelated production config remain closed.
+**Related files:** `docs/watch-officer/qa-production-scenario-selector-review.md`
