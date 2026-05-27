@@ -460,3 +460,13 @@
 **Reason:** Maritime audit approved the scenario as a narrow draft MVP drill, with required boundaries for scenario-local thresholds, early starboard alteration wording, port alteration severity grading, speed reduction as secondary recovery, simple-channel caution, visible draft/non-final wording, VTS exclusion, IALA Region A only, and open human-expert questions before final training approval.  
 **Consequences:** TASK-0095 and TASK-0096 are documentation-only. No implementation, scenario/schema edit, export, deploy, public file change, production change, Captain Ether, Nav Desk, router/registry, auth, VTS, Region B, or final maritime training claim is approved.  
 **Related files:** `docs/watch-officer/maritime-audit-scenario-two-head-on-port-to-port.md`, `docs/game-director/task-0095-ui-hud-scenario-two-head-on-port-to-port-spec-2026-05-27.md`, `docs/game-director/task-0096-engine-scenario-two-schema-classifier-planning-2026-05-27.md`
+
+## GD-DECISION-20260527-47 - Scenario 2 UI And Engine Planning Ready For Review
+
+**Date:** 2026-05-27  
+**Status:** For Review  
+**Area:** Watch Officer / Scenario 2 Planning  
+**Decision:** TASK-0095 UI/HUD spec and TASK-0096 Engine schema/classifier planning are ready for Game Director review.  
+**Reason:** The UI/HUD spec keeps player-facing Scenario 2 guidance display-only, hides numeric CPA/TCPA and classifier thresholds, preserves draft/non-final wording, excludes VTS, and uses Visual/Audio direction as non-implementation inputs. The Engine planning report identifies narrow schema generalization, Scenario 2 data contract, head-on classifier boundaries, port-to-port pass detection, event logging, CPA/TCPA integration, runtime snapshot fields, replay fixtures, tests, likely future files, and stop conditions.  
+**Consequences:** No implementation is approved yet. The likely next slice is schema/data/loader validation for Scenario 2 only, while preserving Scenario 1 regression and avoiding playable scene, export, deploy, VTS, Region B, or final maritime training claims.  
+**Related files:** `docs/watch-officer/scenario-two-head-on-port-to-port-ui-hud-spec.md`, `docs/watch-officer/scenario-two-engine-schema-classifier-planning.md`

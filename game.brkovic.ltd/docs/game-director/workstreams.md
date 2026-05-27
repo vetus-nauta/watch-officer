@@ -15,8 +15,8 @@ This chat is split into workstreams so reports from other chats do not mix into 
 | Gameplay | Lead Maritime Gameplay Designer | Scenario 2 Head-On Port-to-Port rules decision pack | TASK-0093 for review |
 | Visual | Visual Comfort / Art Direction Lead | Watch Officer visual comfort art direction spec | TASK-0091 approved as input |
 | Audio | Audio Direction / Sound Design Lead | Watch Officer focus soundscape and sound design spec | TASK-0092 approved as input |
-| UI/HUD | UI/UX HUD Designer | Scenario 2 Head-On Port-to-Port UI/HUD spec | TASK-0095 assigned |
-| Engine | Engine / Godot Architect | Scenario 2 schema/classifier planning | TASK-0096 assigned |
+| UI/HUD | UI/UX HUD Designer | Scenario 2 Head-On Port-to-Port UI/HUD spec | TASK-0095 for review |
+| Engine | Engine / Godot Architect | Scenario 2 schema/classifier planning | TASK-0096 for review |
 | QA | Maritime QA / Validation | Scenario 1 decision coaching production smoke | TASK-0090 approved |
 | Maritime Audit | Maritime Rules Auditor | Scenario 2 Head-On Port-to-Port maritime audit | TASK-0094 approved |
 | Platform | Game Platform | Scenario 1 decision coaching staged public candidate updated | TASK-0087 passed |
@@ -77,4 +77,4 @@ Region B support is not part of MVP, but the data model must not block future Re
 
 `docs/watch-officer/qa-local-web-export-artifact-review.md` approves local Web export behavior for Game Director public integration decision.
 
-Captain Ether Batch 004 production smoke is closed as PASS by TASK-0078. Watch Officer Scenario 1 Decision Coaching is approved as a public production prototype by TASK-0090. Visual Comfort TASK-0091 and Audio Direction TASK-0092 are approved as direction inputs, not implementation approvals. Gameplay completed TASK-0093 for Scenario 2 Head-On Port-to-Port rules decision pack; Maritime Rules Auditor approved TASK-0094 for UI/HUD and Engine planning. UI/HUD owns TASK-0095 and Engine owns TASK-0096. Final maritime training approval remains closed.
+Captain Ether Batch 004 production smoke is closed as PASS by TASK-0078. Watch Officer Scenario 1 Decision Coaching is approved as a public production prototype by TASK-0090. Visual Comfort TASK-0091 and Audio Direction TASK-0092 are approved as direction inputs, not implementation approvals. Gameplay completed TASK-0093 for Scenario 2 Head-On Port-to-Port rules decision pack; Maritime Rules Auditor approved TASK-0094 for UI/HUD and Engine planning. TASK-0095 UI/HUD spec and TASK-0096 Engine planning are ready for Game Director review. Final maritime training approval remains closed.
