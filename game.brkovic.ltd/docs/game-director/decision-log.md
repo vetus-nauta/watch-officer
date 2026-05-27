@@ -500,3 +500,13 @@
 **Reason:** TASK-0097 passed implementation-side checks, but the next Engine slice should not start until QA confirms the loader contract, Scenario 1 regression, Scenario 2 draft data, VTS exclusion, Region A-only boundary, and no accidental playable/export/public/deploy changes.
 **Consequences:** QA may run headless loader/regression checks and write a review report. QA may not edit implementation code, scenario data, public files, production files, Captain Ether, Nav Desk, router/registry, auth, VTS, Region B, or final maritime training claims.
 **Related files:** `docs/game-director/task-0098-qa-review-scenario-two-schema-data-loader-validation-2026-05-27.md`
+
+## GD-DECISION-20260527-51 - Scenario 2 Loader Validation QA Approved
+
+**Date:** 2026-05-27
+**Status:** Approved for next Engine slice
+**Area:** Watch Officer / QA
+**Decision:** TASK-0098 approves Scenario 2 schema/data/loader validation for the next Engine slice.
+**Reason:** QA confirmed Scenario 1 loader regression, Scenario 2 draft load, Region A-only data, draft/non-final claim status, disabled VTS, one reciprocal-or-nearly-reciprocal power-driven target, head_on / head_on_alter_starboard encounter contract, deterministic replay metadata, and blocking loader errors for invalid Scenario 2 fields. Required loader test passed with `scenario_loader_test: 121 passed, 0 failed`; full headless regression passed with 0 failed tests.
+**Consequences:** The next Engine task may implement Scenario 2 head-on classifier and event logging foundation. Playable Scenario 2 scene, UI/HUD implementation, export, deploy, public changes, VTS, Region B, and final maritime training claims remain closed.
+**Related files:** `docs/watch-officer/qa-scenario-two-schema-data-loader-validation-review.md`
