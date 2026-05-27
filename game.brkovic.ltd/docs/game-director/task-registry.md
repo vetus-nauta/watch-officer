@@ -116,7 +116,7 @@
 | TASK-0096 | Engine Scenario 2 schema/classifier planning | CHAT-ENGINE-001 | For Review | Scenario 2 Engine planning report |
 | TASK-0097 | Engine Scenario 2 schema/data/loader validation | CHAT-ENGINE-001 | Passed | Scenario 2 loader validation report |
 | TASK-0098 | QA review Scenario 2 schema/data/loader validation | CHAT-QA-001 | Approved | QA approval: next Engine slice unblocked |
-| TASK-0099 | Engine Scenario 2 head-on classifier/event log foundation | CHAT-ENGINE-001 | Assigned | Scenario 2 classifier/event log report |
+| TASK-0099 | Engine Scenario 2 head-on classifier/event log foundation | CHAT-ENGINE-001 | Passed | Scenario 2 classifier/event log report |
 
 ## Immediate Next Step
 
@@ -133,7 +133,7 @@ Then assign:
 2. Review `docs/watch-officer/engine-godot-prototype-report.md`.
 3. Review `docs/watch-officer/qa-validation-mvp-report.md`.
 4. Review `docs/game-director/first-scenario-decision-pack-2026-05-26.md`.
-5. Execute `TASK-0099` Scenario 2 head-on classifier/event logging foundation.
+5. QA review `TASK-0099` Scenario 2 head-on classifier/event logging foundation.
 6. Keep playable Scenario 2 scene, export, deploy, VTS, Region B, and final maritime training claims closed until specifically assigned.
 7. Keep Scenario 2 playable scene, export, deploy, VTS, Region B, and final maritime training claims closed until specifically assigned.
 8. Keep Watch Officer as public prototype/draft; final maritime training approval remains closed.
