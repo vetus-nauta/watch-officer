@@ -530,3 +530,13 @@
 **Reason:** Engine added a Scenario 2 specific classifier, deterministic initial-classification event payload, focused headless test, and Scenario 2 target-state support while preserving Scenario 1 regression. Required tests passed: `scenario_loader_test: 121 passed, 0 failed`, `scenario_one_encounter_classifier_test: 16 passed, 0 failed`, and `scenario_two_head_on_classifier_event_log_test: 34 passed, 0 failed`. Full headless regression passed with 0 failed tests.
 **Consequences:** The next gate is QA review of TASK-0099. Playable Scenario 2, UI/HUD, port-to-port pass detection, result evaluation changes, warning escalation changes, export, deploy, public changes, VTS, Region B, and final maritime training claims remain closed.
 **Related files:** `docs/watch-officer/scenario-two-head-on-classifier-event-log-foundation-report.md`
+
+## GD-DECISION-20260527-54 - Scenario 2 Head-On Classifier Moves To QA
+
+**Date:** 2026-05-27
+**Status:** Assigned to QA
+**Area:** Watch Officer / QA
+**Decision:** TASK-0100 is assigned to QA for Scenario 2 head-on classifier and event log foundation review.
+**Reason:** TASK-0099 passed implementation-side checks. QA should confirm the classifier remains scenario-specific, Scenario 1 regression is preserved, invalid inputs reject safely, deterministic event payload is acceptable, and no playable/export/public/deploy scope was opened.
+**Consequences:** QA may run headless tests and write a review report. QA may not edit code, implement pass detection, implement UI/HUD, create a playable scene, export, deploy, edit public files, or touch Captain Ether, Nav Desk, router/registry, auth, VTS, Region B, or final maritime training claims.
+**Related files:** `docs/game-director/task-0100-qa-review-scenario-two-head-on-classifier-event-log-foundation-2026-05-27.md`
