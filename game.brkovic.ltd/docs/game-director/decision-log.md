@@ -611,6 +611,16 @@
 **Consequences:** The next gate is QA review of TASK-0105. Playable Scenario 2, UI/HUD implementation, result evaluation semantic changes, warning escalation semantic changes, export, deploy, public changes, VTS, Region B, and final maritime training claims remain closed.
 **Related files:** `docs/watch-officer/scenario-two-runtime-state-export-orchestrator-integration-foundation-report.md`
 
+## GD-DECISION-20260527-64 - Scenario 2 Runtime State Export Moves To QA
+
+**Date:** 2026-05-27
+**Status:** Assigned to QA
+**Area:** Watch Officer / QA
+**Decision:** TASK-0106 is assigned to QA for Scenario 2 runtime state export and orchestrator integration foundation review.
+**Reason:** TASK-0105 passed implementation-side checks. QA should confirm Scenario 1 behavior preservation, Scenario 2 state/snapshot branches, debug segregation, VTS disabled state, and no accidental UI/playable/export scope.
+**Consequences:** QA may run headless tests and write a review report. QA may not edit code, implement UI/HUD, create a playable scene, change result evaluation, change warning escalation, export, deploy, edit public files, or touch Captain Ether, Nav Desk, router/registry, auth, VTS, Region B, or final maritime training claims.
+**Related files:** `docs/game-director/task-0106-qa-review-scenario-two-runtime-state-export-orchestrator-integration-foundation-2026-05-27.md`
+
 ## GD-DECISION-20260527-55 - Localization Role Office Prepared
 
 **Date:** 2026-05-27
