@@ -25,7 +25,7 @@ func build(scenario: Dictionary, run_id: String, clock_snapshot: Dictionary) -> 
 		"draft_training": true
 	}
 
-	return {
+	var state := {
 		"root": root,
 		"scenario_static": _build_static(scenario, geometry_builder),
 		"ownship": ownship_builder.build(scenario),
@@ -75,6 +75,11 @@ func build(scenario: Dictionary, run_id: String, clock_snapshot: Dictionary) -> 
 		}
 	}
 
+	if scenario["scenario_id"] == "head-on-port-to-port":
+		state["scenario_two"] = _build_scenario_two_state(clock_snapshot["tick"])
+
+	return state
+
 
 func _build_static(scenario: Dictionary, geometry_builder: RefCounted) -> Dictionary:
 	return {
@@ -97,5 +102,31 @@ func _build_static(scenario: Dictionary, geometry_builder: RefCounted) -> Dictio
 		"geometry": geometry_builder.build_static(scenario),
 		"vts": {
 			"enabled": scenario["vts"]["enabled"]
+		}
+	}
+
+
+func _build_scenario_two_state(tick: int) -> Dictionary:
+	return {
+		"encounter_class": "head_on",
+		"player_role": "head_on_alter_starboard",
+		"initial_match": true,
+		"classifier_status": "bootstrap",
+		"early_starboard_status": "not_detected",
+		"early_starboard_detected": false,
+		"early_starboard_tick": -1,
+		"early_starboard_time_sec": -1.0,
+		"port_to_port_status": "not_achieved",
+		"port_to_port_achieved": false,
+		"pass_relationship": "unknown",
+		"draft_training_logic": true,
+		"last_event_types": [],
+		"changed_tick": tick,
+		"debug": {
+			"relative_heading_deg": 0.0,
+			"reciprocal_error_deg": 0.0,
+			"bearing_ahead_delta_deg": 0.0,
+			"heading_delta_deg": 0.0,
+			"separation_m": 0.0
 		}
 	}

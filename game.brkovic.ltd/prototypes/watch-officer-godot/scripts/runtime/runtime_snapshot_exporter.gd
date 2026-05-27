@@ -8,8 +8,11 @@ func export_snapshot(runtime_state: Dictionary) -> Dictionary:
 	var scenario_static: Dictionary = runtime_state["scenario_static"]
 	var ownship: Dictionary = runtime_state["ownship"]
 	var target: Dictionary = runtime_state["target"]
+	var qa: Dictionary = runtime_state["qa"].duplicate(true)
+	if runtime_state.has("scenario_two"):
+		qa["scenario_two_debug"] = runtime_state["scenario_two"].get("debug", {}).duplicate(true)
 
-	return {
+	var snapshot := {
 		"tick": root["tick"],
 		"time_sec": root["time_sec"],
 		"scenario_state": root["scenario_state"],
@@ -64,5 +67,28 @@ func export_snapshot(runtime_state: Dictionary) -> Dictionary:
 		},
 		"warnings": runtime_state["warnings"].duplicate(true),
 		"vts": runtime_state["vts"].duplicate(true),
-		"qa": runtime_state["qa"].duplicate(true)
+		"qa": qa
+	}
+
+	if runtime_state.has("scenario_two"):
+		snapshot["scenario_two"] = _export_scenario_two(runtime_state["scenario_two"])
+
+	return snapshot
+
+
+func _export_scenario_two(scenario_two: Dictionary) -> Dictionary:
+	return {
+		"classifier_status": scenario_two["classifier_status"],
+		"encounter_class": scenario_two["encounter_class"],
+		"player_role": scenario_two["player_role"],
+		"initial_match": scenario_two["initial_match"],
+		"early_starboard_status": scenario_two["early_starboard_status"],
+		"early_starboard_detected": scenario_two["early_starboard_detected"],
+		"early_starboard_tick": scenario_two["early_starboard_tick"],
+		"early_starboard_time_sec": scenario_two["early_starboard_time_sec"],
+		"port_to_port_status": scenario_two["port_to_port_status"],
+		"port_to_port_achieved": scenario_two["port_to_port_achieved"],
+		"pass_relationship": scenario_two["pass_relationship"],
+		"draft_training_logic": scenario_two["draft_training_logic"],
+		"last_event_types": scenario_two["last_event_types"].duplicate(true)
 	}
