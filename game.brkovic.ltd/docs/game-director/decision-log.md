@@ -680,3 +680,53 @@
 **Reason:** QA confirmed approved Scenario 2 draft wording, one primary cue plus capped chips, display-only binding to `runtime_snapshot["scenario_two"]`, no HUD-side simulation computation, no `snapshot["qa"]["scenario_two_debug"]` exposure, Scenario 1 HUD preservation, disabled/inactive VTS, and absence of forbidden player-facing claims. Required focused tests passed with 0 failed tests.
 **Consequences:** The next task may plan Scenario 2 playable-scene integration. Export, deploy, public changes, VTS, Region B, and final maritime training claims remain closed.
 **Related files:** `docs/watch-officer/qa-scenario-two-ui-hud-binding-foundation-review.md`
+
+## GD-DECISION-20260527-69 - Scenario 2 Playable Scene Planning Passed
+
+**Date:** 2026-05-27
+**Status:** Passed
+**Area:** Watch Officer / Engine
+**Decision:** TASK-0109 created the local Scenario 2 playable-scene planning artifact.
+**Reason:** QA approved Scenario 2 HUD binding, so the next controlled move is a narrow local Godot playable-scene slice. The plan keeps the existing greybox scene as the preferred boundary, preserves Scenario 1 as default, adds local scenario path selection, reuses orchestrator/HUD binding, and excludes export, deploy, public routes, registry, Captain Ether, Nav Desk, auth, VTS, Region B, and final maritime training claims.
+**Consequences:** The next task may implement the local Scenario 2 playable-scene slice with focused headless tests. Export/deploy/public work remains closed.
+**Related files:** `docs/watch-officer/scenario-two-playable-scene-planning.md`
+
+## GD-DECISION-20260527-70 - Scenario 2 Local Playable Scene Slice Assigned
+
+**Date:** 2026-05-27
+**Status:** Assigned to Engine
+**Area:** Watch Officer / Engine
+**Decision:** TASK-0110 is assigned to Engine for local Scenario 2 playable-scene implementation.
+**Reason:** TASK-0109 produced a bounded plan. The next narrow slice should add local scenario path selection in the existing greybox controller, preserve Scenario 1 default behavior, reuse orchestrator/HUD binding, and prove Scenario 2 can boot/start/step/reset locally.
+**Consequences:** Engine may edit only the controller, a focused test, and the implementation report. Export, deploy, public files, hub route, registry, Captain Ether, Nav Desk, auth, production config, FTP, VTS, Region B, and final maritime training claims remain closed.
+**Related files:** `docs/game-director/task-0110-engine-local-scenario-two-playable-scene-slice-2026-05-27.md`
+
+## GD-DECISION-20260527-71 - Scenario 2 Local Playable Scene Slice Passed
+
+**Date:** 2026-05-27
+**Status:** Passed, ready for QA review
+**Area:** Watch Officer / Engine
+**Decision:** TASK-0110 completed the local Scenario 2 playable-scene slice.
+**Reason:** The existing greybox controller can now select Scenario 2 locally while preserving Scenario 1 as default. Scenario 2 boots to deterministic ready state, starts with existing controls, queues starboard input, advances through the orchestrator, renders Scenario 2 HUD text, and resets while preserving the active local path. Required focused tests passed with 0 failed tests.
+**Consequences:** The next gate is QA review of TASK-0110. Export, deploy, public files, hub route, registry, Captain Ether, Nav Desk, auth, production config, FTP, VTS, Region B, and final maritime training claims remain closed.
+**Related files:** `docs/watch-officer/scenario-two-playable-scene-slice-report.md`
+
+## GD-DECISION-20260527-72 - Scenario 2 Local Playable Scene Slice Moves To QA
+
+**Date:** 2026-05-27
+**Status:** Assigned to QA
+**Area:** Watch Officer / QA
+**Decision:** TASK-0111 is assigned to QA for the local Scenario 2 playable-scene slice review.
+**Reason:** TASK-0110 passed implementation-side checks. QA should confirm Scenario 1 default preservation, local Scenario 2 path selection, start/input/step/reset behavior, display-safe HUD output, absence of public/export/deploy scope, and maintained draft/non-final boundaries.
+**Consequences:** QA may run focused headless tests and write a review report. QA may not edit code, export, deploy, edit public files, or touch hub route, registry, Captain Ether, Nav Desk, auth, production config, FTP, VTS, Region B, or final maritime training claims.
+**Related files:** `docs/watch-officer/scenario-two-playable-scene-slice-report.md`
+
+## GD-DECISION-20260527-73 - Scenario 2 Local Playable Scene QA Approved
+
+**Date:** 2026-05-27
+**Status:** Approved for next slice
+**Area:** Watch Officer / QA
+**Decision:** TASK-0111 approves the local Scenario 2 playable-scene slice.
+**Reason:** QA confirmed Scenario 1 default path preservation, local Scenario 2 path selection without router/registry/public route work, deterministic reset, start/input/step behavior through the orchestrator, display-safe Scenario 2 HUD output, reset path persistence, and no forbidden export/deploy/public/final-claim scope. Required focused tests passed with 0 failed tests.
+**Consequences:** The next task may prepare a local polish/export-decision slice for Scenario 2. Production deploy, public route/registry changes, VTS, Region B, and final maritime training claims remain closed.
+**Related files:** `docs/watch-officer/qa-local-scenario-two-playable-scene-slice-review.md`

@@ -126,6 +126,9 @@
 | TASK-0106 | QA review Scenario 2 runtime state export / orchestrator integration foundation | CHAT-QA-001 | Approved | QA approval: UI/HUD binding or playable planning unblocked |
 | TASK-0107 | UI/HUD Scenario 2 binding foundation | CHAT-GD-001 / UI-HUD Integration | Passed | Scenario 2 HUD reads Engine state display-only |
 | TASK-0108 | QA review Scenario 2 UI/HUD binding foundation | CHAT-QA-001 | Approved | QA approval: playable scene planning unblocked |
+| TASK-0109 | Engine Scenario 2 playable scene planning | CHAT-ENGINE-001 | Passed | Local playable scene implementation plan ready |
+| TASK-0110 | Engine local Scenario 2 playable scene slice | CHAT-ENGINE-001 | Passed | Local Scenario 2 playable scene slice ready for QA |
+| TASK-0111 | QA review local Scenario 2 playable scene slice | CHAT-QA-001 | Approved | QA approval: next local polish/export decision unblocked |
 
 ## Immediate Next Step
 
@@ -142,8 +145,8 @@ Then assign:
 2. Review `docs/watch-officer/engine-godot-prototype-report.md`.
 3. Review `docs/watch-officer/qa-validation-mvp-report.md`.
 4. Review `docs/game-director/first-scenario-decision-pack-2026-05-26.md`.
-5. Assign Scenario 2 playable scene planning as the next narrow slice.
-6. Keep Scenario 2 playable implementation separate from export/deploy.
+5. Assign Scenario 2 local polish/export-decision slice.
+6. Keep Scenario 2 production deploy/public route separate from local export work.
 7. Keep Scenario 2 export, deploy, VTS, Region B, and final maritime training claims closed until specifically assigned.
 8. Keep Watch Officer as public prototype/draft; final maritime training approval remains closed.
 9. Keep Captain Ether content/API, Nav Desk, Watch Officer unrelated files, auth implementation, and unrelated production config closed unless explicitly assigned.

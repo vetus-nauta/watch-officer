@@ -7,7 +7,7 @@ const ScenarioLoader = preload("res://scripts/core/scenario_loader.gd")
 const RuntimeStepOrchestrator = preload("res://scripts/runtime/runtime_step_orchestrator.gd")
 const HudSnapshotBinder = preload("res://scripts/ui/hud_snapshot_binder.gd")
 
-const SCENARIO_PATH := "res://data/scenarios/safe-water-crossing-target.json"
+const DEFAULT_SCENARIO_PATH := "res://data/scenarios/safe-water-crossing-target.json"
 const VIEW_SCALE := 1.25
 const OWNERSHIP_ANCHOR_FALLBACK := [0.5, 0.7]
 const TERMINAL_RESULT_STATES := ["success", "warning_outcome", "unsafe_manoeuvre", "near_miss", "grounding", "collision", "load_blocked"]
@@ -18,6 +18,7 @@ var runtime_snapshot: Dictionary = {}
 var scenario_result_detail: Dictionary = {}
 var last_loader_error: Dictionary = {}
 var local_attempt_state := "ready"
+var _scenario_path := DEFAULT_SCENARIO_PATH
 
 var _orchestrator := RuntimeStepOrchestrator.new()
 var _hud_binder := HudSnapshotBinder.new()
@@ -78,7 +79,7 @@ func reset_scenario() -> void:
 	_queued_input_records = []
 
 	var loader := ScenarioLoader.new()
-	scenario = loader.load_scenario(SCENARIO_PATH)
+	scenario = loader.load_scenario(_scenario_path)
 	if scenario.is_empty() or not loader.last_error.is_empty():
 		last_loader_error = loader.last_error.duplicate(true)
 		runtime_state = {}
@@ -88,7 +89,7 @@ func reset_scenario() -> void:
 		return
 
 	var bootstrap := RuntimeBootstrap.new()
-	var bootstrap_result := bootstrap.bootstrap(SCENARIO_PATH)
+	var bootstrap_result := bootstrap.bootstrap(_scenario_path)
 	if not bootstrap_result.get("loader_error", {}).is_empty():
 		last_loader_error = bootstrap_result["loader_error"].duplicate(true)
 		runtime_state = {}
@@ -109,6 +110,25 @@ func reset_scenario() -> void:
 	}
 	_update_hud()
 	queue_redraw()
+
+
+func set_scenario_path(path: String) -> Dictionary:
+	_scenario_path = path
+	reset_scenario()
+	return {
+		"action": "set_scenario_path",
+		"scenario_path": _scenario_path,
+		"loader_error": last_loader_error.duplicate(true),
+		"attempt_state": local_attempt_state
+	}
+
+
+func load_scenario_path(path: String) -> Dictionary:
+	return set_scenario_path(path)
+
+
+func get_scenario_path() -> String:
+	return _scenario_path
 
 
 func advance_one_tick(input_records: Array = [], external_flags: Dictionary = {}) -> Dictionary:
