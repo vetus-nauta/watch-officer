@@ -581,6 +581,16 @@
 **Consequences:** QA may run headless tests and write a review report. QA may not edit code, implement UI/HUD, create a playable scene, change result evaluation, change warning escalation, export, deploy, edit public files, or touch Captain Ether, Nav Desk, router/registry, auth, VTS, Region B, or final maritime training claims.
 **Related files:** `docs/game-director/task-0103-qa-review-scenario-two-port-to-port-pass-early-starboard-event-foundation-2026-05-27.md`
 
+## GD-DECISION-20260527-61 - Scenario 2 Port-To-Port Event QA Approved
+
+**Date:** 2026-05-27
+**Status:** Approved for next Engine slice
+**Area:** Watch Officer / QA
+**Decision:** TASK-0103 approves Scenario 2 port-to-port pass and early starboard alteration event foundation for the next Engine slice.
+**Reason:** QA confirmed Scenario 2-specific detector scope, early starboard action-window behavior, rejection of late/port/wrong pass/unsafe CPA/collision cases, deterministic event types, deterministic payloads, and preserved boundaries. Required tests and full headless regression passed with 0 failed tests.
+**Consequences:** The next Engine task may bind Scenario 2 classifier/detector outputs into Engine-owned runtime state and export contract planning. Playable Scenario 2, UI/HUD implementation, result evaluation changes, warning escalation changes, export, deploy, public changes, VTS, Region B, and final maritime training claims remain closed.
+**Related files:** `docs/watch-officer/qa-scenario-two-port-to-port-pass-early-starboard-event-foundation-review.md`
+
 ## GD-DECISION-20260527-55 - Localization Role Office Prepared
 
 **Date:** 2026-05-27
