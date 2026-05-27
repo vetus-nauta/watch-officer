@@ -3,7 +3,7 @@ Allow: /
 Disallow: /admin/
 Disallow: /api/
 Disallow: /private/
+Disallow: /prototype/
 Disallow: /storage/
 
-Sitemap: https://game.brkovic.ltd/watch-officer/sitemap.xml
-
+Sitemap: https://game.brkovic.ltd/sitemap.xml
