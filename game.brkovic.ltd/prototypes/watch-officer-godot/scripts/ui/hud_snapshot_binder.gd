@@ -29,6 +29,12 @@ const WARNING_LABELS := {
 	"warning.shallow_water": "Shallow water",
 	"warning.leaving_safe_water": "Leaving safe water",
 	"warning.late_alteration": "Late alteration",
+	"warning.late_head_on_action": "Late alteration",
+	"warning.risk_increasing_port_alteration": "Port alteration risk",
+	"risk_increasing_port_alteration": "Port alteration risk",
+	"warning.port_alteration_increased_risk": "Port alteration risk",
+	"port_alteration_increased_risk": "Port alteration risk",
+	"late_head_on_action": "Late alteration",
 	"warning.collision": "Collision",
 	"warning.grounding": "Grounding",
 	"cpa_tcpa.cpa_risk": "CPA risk",
@@ -61,6 +67,12 @@ const WARNING_REASON_LABELS := {
 	"warning.shallow_water": "Shallow-water risk increased.",
 	"warning.leaving_safe_water": "Safe-water corridor was not maintained.",
 	"warning.late_alteration": "Manoeuvre was late or unclear.",
+	"warning.late_head_on_action": "Alteration was late or unclear.",
+	"warning.risk_increasing_port_alteration": "Port alteration increased risk in this scenario.",
+	"risk_increasing_port_alteration": "Port alteration increased risk in this scenario.",
+	"warning.port_alteration_increased_risk": "Port alteration increased risk in this scenario.",
+	"port_alteration_increased_risk": "Port alteration increased risk in this scenario.",
+	"late_head_on_action": "Alteration was late or unclear.",
 	"cpa_tcpa.cpa_risk": "CPA risk increased.",
 	"geometry.shallow_water": "Shallow-water risk increased.",
 	"geometry.leaving_safe_water": "Safe-water corridor was not maintained."
@@ -97,7 +109,7 @@ func build_sections(runtime_snapshot: Dictionary, attempt_state: String = "ready
 	var result_feedback := _build_result_feedback(runtime_snapshot, attempt_state, scenario_result_detail)
 	var decision_coaching_model := _build_decision_coaching_model(runtime_snapshot, attempt_state)
 	var decision_coaching := _format_decision_coaching(decision_coaching_model)
-	var result_reasons := _result_reasons(runtime_snapshot, scenario_result_detail)
+	var result_reasons := _scenario_two_result_reasons(runtime_snapshot, scenario_result_detail) if _is_scenario_two(runtime_snapshot) else _result_reasons(runtime_snapshot, scenario_result_detail)
 	return {
 		"instrument_strip": instrument_strip,
 		"warning_stack": warning_stack,
@@ -147,6 +159,7 @@ func _build_briefing(runtime_snapshot: Dictionary = {}) -> String:
 			"",
 			"Situation",
 			"Draft training scenario. One power-driven target is approaching on a reciprocal or nearly reciprocal course. Recommended action in this scenario: alter starboard early and create a port-to-port pass.",
+			"Region A / VTS inactive",
 			"",
 			"Watch",
 			"Head-on risk | Alter starboard early | Port-to-port pass",
@@ -295,6 +308,17 @@ func _build_scenario_two_decision_coaching_model(runtime_snapshot: Dictionary) -
 	var warnings: Dictionary = runtime_snapshot["warnings"]
 	var scenario_two: Dictionary = runtime_snapshot.get("scenario_two", {})
 	var primary_warning = warnings.get("primary_warning", null)
+	var has_port_alteration_risk_warning := _scenario_two_has_warning(warnings, [
+		"warning.risk_increasing_port_alteration",
+		"risk_increasing_port_alteration",
+		"warning.port_alteration_increased_risk",
+		"port_alteration_increased_risk"
+	])
+	var has_late_action_warning := _scenario_two_has_warning(warnings, [
+		"warning.late_alteration",
+		"warning.late_head_on_action",
+		"late_head_on_action"
+	])
 	var primary := ""
 	var chips: Array[String] = []
 
@@ -307,12 +331,21 @@ func _build_scenario_two_decision_coaching_model(runtime_snapshot: Dictionary) -
 	elif ["immediate", "danger"].has(str(cpa_tcpa["state"])):
 		primary = "CPA danger. Avoid collision."
 		chips.append(_cpa_tcpa_player_label(str(cpa_tcpa["state"])))
+	elif _scenario_two_has_port_alteration_risk(scenario_two) or has_port_alteration_risk_warning:
+		primary = "Port alteration increased risk in this scenario."
+		chips.append("Head-on")
+	elif _scenario_two_has_late_action(scenario_two) or has_late_action_warning:
+		primary = "Late alteration. Act now."
+		chips.append("Late action")
 	elif str(cpa_tcpa["state"]) == "caution":
 		primary = "CPA caution. Increase separation."
 		chips.append(_cpa_tcpa_player_label("caution"))
 	elif bool(scenario_two.get("port_to_port_achieved", false)):
 		primary = "Port-to-port pass achieved."
 		chips.append("Port-to-port")
+	elif _scenario_two_has_early_starboard_confirmation(scenario_two):
+		primary = "Early starboard alteration made."
+		chips.append("Starboard early")
 	elif int(runtime_snapshot["tick"]) <= OPENING_CUE_HOLD_TICKS:
 		primary = "Head-on risk. Alter starboard early."
 		chips.append("Head-on")
@@ -381,17 +414,93 @@ func _scenario_two_result_category(scenario_result: String) -> Dictionary:
 
 func _scenario_two_result_reasons(runtime_snapshot: Dictionary, scenario_result_detail: Dictionary) -> Array[String]:
 	var scenario_two: Dictionary = runtime_snapshot.get("scenario_two", {})
+	var warnings: Dictionary = runtime_snapshot["warnings"]
 	var reasons: Array[String] = []
+	if _scenario_two_has_late_action(scenario_two):
+		reasons.append("Alteration was late or unclear.")
+	if _scenario_two_has_port_alteration_risk(scenario_two):
+		reasons.append("Port alteration increased risk in this scenario.")
+	_append_scenario_two_reason_for_warning(reasons, warnings.get("primary_warning", null))
+	for warning in warnings.get("secondary_warnings", []):
+		_append_scenario_two_reason_for_warning(reasons, warning)
+	for warning_id in scenario_result_detail.get("active_warning_ids", []):
+		_append_scenario_two_reason(reasons, _scenario_two_reason_for_warning_key(str(warning_id)))
 	if bool(scenario_two.get("early_starboard_detected", false)):
-		reasons.append("Early starboard alteration made.")
+		_append_scenario_two_reason(reasons, "Early starboard alteration made.")
 	if bool(scenario_two.get("port_to_port_achieved", false)):
-		reasons.append("Port-to-port pass achieved.")
+		_append_scenario_two_reason(reasons, "Port-to-port pass achieved.")
 	if str(runtime_snapshot["cpa_tcpa"]["state"]) == "safe":
-		reasons.append("CPA state recovered in this scenario.")
+		_append_scenario_two_reason(reasons, "CPA state recovered in this scenario.")
 	for reason in _result_reasons(runtime_snapshot, scenario_result_detail):
-		if not reasons.has(reason):
+		if not _scenario_two_has_equivalent_reason(reasons, reason):
 			reasons.append(reason)
 	return reasons.slice(0, min(3, reasons.size()))
+
+
+func _scenario_two_has_port_alteration_risk(scenario_two: Dictionary) -> bool:
+	if str(scenario_two.get("early_starboard_status", "")) == "wrong_direction":
+		return true
+	return ["moderate", "serious", "critical", "risk_increasing", "active"].has(str(scenario_two.get("port_alteration_risk_status", "")))
+
+
+func _scenario_two_has_late_action(scenario_two: Dictionary) -> bool:
+	if str(scenario_two.get("early_starboard_status", "")) == "late":
+		return true
+	return ["late_clear", "unclear"].has(str(scenario_two.get("first_starboard_alteration_status", "")))
+
+
+func _scenario_two_has_early_starboard_confirmation(scenario_two: Dictionary) -> bool:
+	if bool(scenario_two.get("early_starboard_detected", false)):
+		return true
+	if str(scenario_two.get("early_starboard_status", "")) == "detected":
+		return true
+	return str(scenario_two.get("first_starboard_alteration_status", "")) == "early"
+
+
+func _scenario_two_has_warning(warnings: Dictionary, keys: Array[String]) -> bool:
+	if _scenario_two_warning_matches(warnings.get("primary_warning", null), keys):
+		return true
+	for warning in warnings.get("secondary_warnings", []):
+		if _scenario_two_warning_matches(warning, keys):
+			return true
+	return false
+
+
+func _scenario_two_warning_matches(warning: Variant, keys: Array[String]) -> bool:
+	if warning == null:
+		return false
+	var warning_dict: Dictionary = warning
+	return keys.has(str(warning_dict.get("text_key", ""))) or keys.has(str(warning_dict.get("id", "")))
+
+
+func _append_scenario_two_reason_for_warning(reasons: Array[String], warning: Variant) -> void:
+	if warning == null or reasons.size() >= 3:
+		return
+	var warning_dict: Dictionary = warning
+	var reason := _scenario_two_reason_for_warning_key(str(warning_dict.get("text_key", warning_dict.get("id", ""))))
+	_append_scenario_two_reason(reasons, reason)
+
+
+func _scenario_two_reason_for_warning_key(key: String) -> String:
+	match key:
+		"warning.late_alteration", "warning.late_head_on_action", "late_head_on_action":
+			return "Alteration was late or unclear."
+		"warning.risk_increasing_port_alteration", "risk_increasing_port_alteration", "warning.port_alteration_increased_risk", "port_alteration_increased_risk":
+			return "Port alteration increased risk in this scenario."
+	return ""
+
+
+func _append_scenario_two_reason(reasons: Array[String], reason: String) -> void:
+	if reason != "" and not reasons.has(reason) and reasons.size() < 3:
+		reasons.append(reason)
+
+
+func _scenario_two_has_equivalent_reason(reasons: Array[String], reason: String) -> bool:
+	if reasons.has(reason):
+		return true
+	if reason == "Manoeuvre was late or unclear." and reasons.has("Alteration was late or unclear."):
+		return true
+	return false
 
 
 func _scenario_two_action_label(status: String) -> String:

@@ -1,7 +1,7 @@
 # Task Registry
 
-**Owner:** Game Director  
-**Updated:** 2026-05-27  
+**Owner:** Game Director
+**Updated:** 2026-05-27
 **Project:** `game.brkovic.ltd`
 
 ## Statuses
@@ -139,6 +139,14 @@
 | TASK-0119 | QA staged public scenario selector smoke | CHAT-QA-001 | Approved | QA approval: production deploy decision unblocked |
 | TASK-0120 | Controlled production deploy scenario selector build | CHAT-GD-001 / Platform Deploy | Passed | Production updated; QA smoke assigned |
 | TASK-0121 | QA production smoke scenario selector build | CHAT-QA-001 | Approved | Public prototype live: Scenario selector build |
+| TASK-0122 | Post-recovery checkpoint and sprint control | CHAT-GD-001 | Completed | Recovery checkpoint and sprint assignments closed |
+| TASK-0123 | UX Scenario 2 coaching + result feedback spec | CHAT-UX-001 | Approved for Engine | Scenario 2 coaching/result feedback UX spec |
+| TASK-0124 | Engine Scenario 2 coaching + result feedback pack | CHAT-ENGINE-001 | Passed | Local Godot implementation/report and focused test |
+| TASK-0125 | QA review Scenario 2 coaching + result feedback pack | CHAT-QA-001 | Changes-required | QA found two UX acceptance gaps |
+| TASK-0126 | Engine fix Scenario 2 coaching/result feedback QA findings | CHAT-ENGINE-001 | Passed | Local fix report and focused tests |
+| TASK-0127 | QA rerun Scenario 2 coaching/result feedback fixes | CHAT-QA-001 | Approved | Local QA approved Scenario 2 coaching/result feedback pack |
+| TASK-0128 | Engine local Web export Scenario 2 coaching/result feedback | CHAT-ENGINE-001 | Passed | Prototype-local Web export |
+| TASK-0129 | QA local Web export smoke Scenario 2 coaching/result feedback | CHAT-QA-001 | Approved | Approved for staged public candidate decision |
 
 ## Immediate Next Step
 
@@ -155,7 +163,7 @@ Then assign:
 2. Review `docs/watch-officer/engine-godot-prototype-report.md`.
 3. Review `docs/watch-officer/qa-validation-mvp-report.md`.
 4. Review `docs/game-director/first-scenario-decision-pack-2026-05-26.md`.
-5. Plan next MVP slice after public Scenario 1 / Scenario 2 selector.
+5. Decide whether to assign staged public candidate update for the QA-approved Scenario 2 Coaching + Result Feedback Pack.
 6. Keep final maritime training approval, VTS, and Region B closed.
 7. Keep Scenario 2 export, deploy, VTS, Region B, and final maritime training claims closed until specifically assigned.
 8. Keep Watch Officer as public prototype/draft; final maritime training approval remains closed.
